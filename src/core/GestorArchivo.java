@@ -81,14 +81,17 @@ public class GestorArchivo {
 		String bufferMethod = "";
 		boolean dentro_metodo = false;
 		for (int i = 0; i < texto.size(); i++) {
-			if (texto.get(i).lastIndexOf(PARENTHESIS_KEY_OPEN) > 0) {
+			if (texto.get(i).indexOf(PARENTHESIS_KEY_OPEN) >= 0) {
 				inicioMetodo = texto.get(i).substring(0,
-						texto.get(i).lastIndexOf(PARENTHESIS_KEY_OPEN));
+						texto.get(i).indexOf(PARENTHESIS_KEY_OPEN));
 
+				System.out.println("inicio " + inicioMetodo);
 				String reemplazo[] = inicioMetodo.split(" ");
 				for (int j = 0; j < reemplazo.length; j++) {
-					if (reemplazo[j].matches("\\w+\\(\\w*")) {
+					System.out.println("palabra " + reemplazo[j]);
+					if (reemplazo[j].matches("\\w+\\(.*")) {
 						dentro_metodo = true;
+						System.out.println("reemp " + reemplazo[j]);
 						methods.add(reemplazo[j].substring(0, reemplazo[j].indexOf("(")));
 					}
 				}
@@ -97,12 +100,10 @@ public class GestorArchivo {
 				bufferMethod = bufferMethod + texto.get(i);
 			}
 			if (dentro_metodo && texto.get(i).indexOf(KEY_OPEN) >= 0) {
-				System.out.println("aumento la llave");
 				llaves_abiertas++;
 			}
 			
 			if (dentro_metodo && texto.get(i).indexOf(KEY_CLOSE) >= 0) {
-				System.out.println("disminuyo la llave");
 				llaves_abiertas--;
 			}
 			if (dentro_metodo && llaves_abiertas == 0) {
