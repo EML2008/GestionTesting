@@ -1,5 +1,6 @@
 package core;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 
 public class Metodo {
@@ -86,7 +87,12 @@ public class Metodo {
 
 	@Override
 	public String toString() {
-		return "Metodo [nombre=" + nombre + ", texto=" + texto + "]";
+		String ret = "";
+		for (Iterator iterator = texto.iterator(); iterator.hasNext();) {
+			ret += (String) iterator.next() + "\n";
+			
+		}
+		return ret;
 	}
 
 }
