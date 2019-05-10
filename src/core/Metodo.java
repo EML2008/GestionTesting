@@ -5,11 +5,12 @@ import java.util.LinkedList;
 public class Metodo {
 
 	private static final String IF = "if ";
+	private static final String WHILE = "while ";
+	private static final String FOR = "for ";
 	private static final String AND = "&&";
 	private static final String OR = "||";
 	private String nombre = "";
 	private LinkedList<String> texto = new LinkedList<String>();
-	private int cantidadIf = 0;
 
 	public Metodo(String nombre, LinkedList<String> texto) {
 		super();
@@ -31,32 +32,27 @@ public class Metodo {
 	 * 
 	 * @return
 	 */
-	public LinkedList<String> findIf() {
-		int count = 0;
+	public int predicados() {
+		int predicados = 0;
 		for (int i = 0; i < texto.size(); i++) {
-			if (texto.get(i).indexOf(IF) >= 0) {
-				cantidadIf++;
-
-				int fromIndex = texto.get(i).indexOf(IF);
-				while ((fromIndex = texto.get(i).indexOf(AND, fromIndex)) != -1) {
-					count++;
-					fromIndex++;
-				}
-				fromIndex = texto.get(i).indexOf(IF);
-				while ((fromIndex = texto.get(i).indexOf(OR, fromIndex)) != -1) {
-					count++;
-					fromIndex++;
-				}
-				System.out.println("tiene " + count + " and");
-			}
+			// TODO: alta complejidad hermano
+			predicados += contarPalabrasClave(i, IF);
+			predicados += contarPalabrasClave(i, WHILE);
+			predicados += contarPalabrasClave(i, FOR);
+			predicados += contarPalabrasClave(i, AND);
+			predicados += contarPalabrasClave(i, OR);
 		}
-		
-		if(count > 0) {
-			
-		}
+		return predicados;
+	}
 
-		System.out.println("hay " + cantidadIf + " if");
-		return null;
+	private int contarPalabrasClave(int i, final String keyword) {
+		int fromIndex = 0;
+		int predicados = 0;
+		while ((fromIndex = texto.get(i).indexOf(keyword, fromIndex)) != -1) {
+			predicados++;
+			fromIndex++;
+		}
+		return predicados;
 	}
 
 	@Override
