@@ -13,6 +13,8 @@ import javax.swing.JOptionPane;
 import core.Clase;
 import core.GestorArchivo;
 import core.Metodo;
+import javax.swing.JTextArea;
+import javax.swing.JComboBox;
 
 public class Ventana extends JFrame {
 
@@ -23,31 +25,36 @@ public class Ventana extends JFrame {
 		JButton btnSeleccionarArchivo = new JButton("Seleccionar Archivo");
 		btnSeleccionarArchivo.setBounds(10, 11, 151, 23);
 		getContentPane().add(btnSeleccionarArchivo);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(11, 49, 151, 22);
+		getContentPane().add(comboBox);
+		
+		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setBounds(175, 49, 151, 22);
+		getContentPane().add(comboBox_1);
 		btnSeleccionarArchivo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fileSelector = new JFileChooser();
-				
+
 				if (fileSelector.showOpenDialog((Component) e.getSource()) == JFileChooser.APPROVE_OPTION) {
 					String ruta = fileSelector.getSelectedFile().getPath();
 					if (ruta.contains(".java")) {
 						GestorArchivo gestorArchivo = new GestorArchivo(ruta);
-						
-						for (Iterator<Clase> i = gestorArchivo.findClass().iterator(); i.hasNext();) {
+						for (Iterator<Clase> i = gestorArchivo.findClass().iterator(); i.hasNext();) { //Criptico hermano
 							Clase clase = i.next();
 							System.out.println("clase " + clase + " " + clase.getTexto());
-							for (Iterator<Metodo> j = clase.findMethods()
-									.iterator(); j.hasNext();) {
-								Metodo metodo = j.next();
-								System.out.println("method " + metodo + " " + metodo.getTexto());
-								
-								metodo.findIf();
-							}
+//							for (Iterator<Metodo> j = clase.findMethods().iterator(); j.hasNext();) {
+//								Metodo metodo = j.next();
+//								System.out.println("method " + metodo + " " + metodo.getTexto());
+//
+//								metodo.findIf();
+//							}
 						}
-						
+
 					} else {
-						JOptionPane.showMessageDialog(null,
-								"Debe seleccionar un archivo del tipo .java",
-								"ERROR", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Debe seleccionar un archivo del tipo .java", "ERROR",
+								JOptionPane.ERROR_MESSAGE);
 					}
 
 				} else {
