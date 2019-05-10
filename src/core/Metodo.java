@@ -9,7 +9,6 @@ public class Metodo {
 	private static final String OR = "||";
 	private String nombre = "";
 	private LinkedList<String> texto = new LinkedList<String>();
-	private int cantidadIf = 0;
 
 	public Metodo(String nombre, LinkedList<String> texto) {
 		super();
@@ -31,32 +30,29 @@ public class Metodo {
 	 * 
 	 * @return
 	 */
-	public LinkedList<String> findIf() {
-		int count = 0;
+	public int predicados() {
+		int predicados = 0;
+		int fromIndex = 0;
 		for (int i = 0; i < texto.size(); i++) {
-			if (texto.get(i).indexOf(IF) >= 0) {
-				cantidadIf++;
 
-				int fromIndex = texto.get(i).indexOf(IF);
-				while ((fromIndex = texto.get(i).indexOf(AND, fromIndex)) != -1) {
-					count++;
-					fromIndex++;
-				}
-				fromIndex = texto.get(i).indexOf(IF);
-				while ((fromIndex = texto.get(i).indexOf(OR, fromIndex)) != -1) {
-					count++;
-					fromIndex++;
-				}
-				System.out.println("tiene " + count + " and");
+			fromIndex = 0;
+			while ((fromIndex = texto.get(i).indexOf(IF, fromIndex)) != -1) {
+				predicados++;
+				fromIndex++;
+			}
+			fromIndex = 0;
+			while ((fromIndex = texto.get(i).indexOf(AND, fromIndex)) != -1) {
+				predicados++;
+				fromIndex++;
+			}
+			fromIndex = 0;
+			while ((fromIndex = texto.get(i).indexOf(OR, fromIndex)) != -1) {
+				predicados++;
+				fromIndex++;
 			}
 		}
-		
-		if(count > 0) {
-			
-		}
 
-		System.out.println("hay " + cantidadIf + " if");
-		return null;
+		return predicados;
 	}
 
 	@Override

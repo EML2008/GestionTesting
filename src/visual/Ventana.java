@@ -4,8 +4,10 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -13,8 +15,6 @@ import javax.swing.JOptionPane;
 import core.Clase;
 import core.GestorArchivo;
 import core.Metodo;
-import javax.swing.JTextArea;
-import javax.swing.JComboBox;
 
 public class Ventana extends JFrame {
 
@@ -44,12 +44,13 @@ public class Ventana extends JFrame {
 						for (Iterator<Clase> i = gestorArchivo.findClass().iterator(); i.hasNext();) { //Criptico hermano
 							Clase clase = i.next();
 							System.out.println("clase " + clase + " " + clase.getTexto());
-//							for (Iterator<Metodo> j = clase.findMethods().iterator(); j.hasNext();) {
-//								Metodo metodo = j.next();
-//								System.out.println("method " + metodo + " " + metodo.getTexto());
-//
-//								metodo.findIf();
-//							}
+							List<Metodo> metodos = clase.findMethods();
+							for (int j = 0; j < metodos.size(); j++) {
+								Metodo metodo = metodos.get(j);
+								System.out.println("method " + metodo + " " + metodo.getTexto());
+
+								System.out.println("predicados " + metodo.predicados());
+							}
 						}
 
 					} else {
