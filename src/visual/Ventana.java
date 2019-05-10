@@ -13,7 +13,6 @@ import core.GestorArchivo;
 
 public class Ventana extends JFrame {
 	
-	
 	public Ventana() {
 		getContentPane().setLayout(null);
 		JButton btnSeleccionarArchivo = new JButton("Seleccionar Archivo");
@@ -27,8 +26,7 @@ public class Ventana extends JFrame {
 					String ruta = fileSelector.getSelectedFile().getPath();
 					if (ruta.contains(".java")) {
 						GestorArchivo gestorArchivo = new GestorArchivo(ruta);
-						System.out.println(gestorArchivo.findClass());
-						System.out.println("eso imprime");
+						System.out.println("clase '" + gestorArchivo.findClass() + "'");
 					} else {
 						JOptionPane.showMessageDialog(null, "Debe seleccionar un archivo del tipo .java","ERROR", JOptionPane.ERROR_MESSAGE);
 					}

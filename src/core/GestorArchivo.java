@@ -9,12 +9,17 @@ import java.util.Scanner;
 public class GestorArchivo {
 
 	List<String> texto = new LinkedList<String>();
-	
+	String clase = "";
+	private static final String CLASS = "class ";
+	private static final String KEY_CLOSE = " {";
+	private static final String CLASS_EXTENDS = " extends ";
+	private static final String CLASS_IMPLEMENTS = " implements ";
+
 	public GestorArchivo(String ruta) {
 		Scanner sc;
 		try {
 			sc = new Scanner(new File(ruta));
-			while(sc.hasNextLine()) {
+			while (sc.hasNextLine()) {
 				this.texto.add(sc.nextLine());
 			}
 			sc.close();
@@ -23,24 +28,47 @@ public class GestorArchivo {
 		}
 
 	}
-	
+
 	/**
 	 * Buscar las clases en el archivo
 	 */
 	public String findClass() {
-		
+
 		for (int i = 0; i < texto.size(); i++) {
-			System.out.println("line " + i + " : " + texto.get(i));			
+			if (texto.get(i).lastIndexOf(CLASS) > 0) {
+				String inicioClase = texto.get(i).substring(
+						texto.get(i).lastIndexOf(CLASS));
+
+				if (inicioClase.lastIndexOf(KEY_CLOSE) > 0) {
+
+					this.clase = inicioClase.substring(CLASS.length(),
+							inicioClase.lastIndexOf(KEY_CLOSE));
+
+					if (inicioClase.lastIndexOf(CLASS_EXTENDS) > 0) {
+						this.clase = inicioClase.substring(CLASS.length(),
+								inicioClase.lastIndexOf(CLASS_EXTENDS));
+
+					} else {
+
+						if (inicioClase.lastIndexOf(CLASS_IMPLEMENTS) > 0) {
+							this.clase = inicioClase.substring(CLASS.length(),
+									inicioClase.lastIndexOf(CLASS_IMPLEMENTS));
+						}
+					}
+				}
+
+			}
 		}
-		return texto.get(0);
+		return this.clase;
 	}
-	
+
 	/**
 	 * Busca los metodos de la clase
+	 * 
 	 * @param clase
 	 */
 	public void findMethod(String clase) {
-		
+
 	}
 
 }
