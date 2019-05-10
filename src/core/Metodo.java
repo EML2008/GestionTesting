@@ -5,6 +5,8 @@ import java.util.LinkedList;
 public class Metodo {
 
 	private static final String IF = "if ";
+	private static final String WHILE = "while ";
+	private static final String FOR = "for ";
 	private static final String AND = "&&";
 	private static final String OR = "||";
 	private String nombre = "";
@@ -32,26 +34,24 @@ public class Metodo {
 	 */
 	public int predicados() {
 		int predicados = 0;
-		int fromIndex = 0;
 		for (int i = 0; i < texto.size(); i++) {
-
-			fromIndex = 0;
-			while ((fromIndex = texto.get(i).indexOf(IF, fromIndex)) != -1) {
-				predicados++;
-				fromIndex++;
-			}
-			fromIndex = 0;
-			while ((fromIndex = texto.get(i).indexOf(AND, fromIndex)) != -1) {
-				predicados++;
-				fromIndex++;
-			}
-			fromIndex = 0;
-			while ((fromIndex = texto.get(i).indexOf(OR, fromIndex)) != -1) {
-				predicados++;
-				fromIndex++;
-			}
+			// TODO: alta complejidad hermano
+			predicados += contarPalabrasClave(i, IF);
+			predicados += contarPalabrasClave(i, WHILE);
+			predicados += contarPalabrasClave(i, FOR);
+			predicados += contarPalabrasClave(i, AND);
+			predicados += contarPalabrasClave(i, OR);
 		}
+		return predicados;
+	}
 
+	private int contarPalabrasClave(int i, final String keyword) {
+		int fromIndex = 0;
+		int predicados = 0;
+		while ((fromIndex = texto.get(i).indexOf(keyword, fromIndex)) != -1) {
+			predicados++;
+			fromIndex++;
+		}
 		return predicados;
 	}
 
