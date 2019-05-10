@@ -27,10 +27,14 @@ public class Ventana extends JFrame {
 					String ruta = fileSelector.getSelectedFile().getPath();
 					if (ruta.contains(".java")) {
 						GestorArchivo gestorArchivo = new GestorArchivo(ruta);
+						System.out.println(gestorArchivo.findClass());
+						System.out.println("eso imprime");
 					} else {
 						JOptionPane.showMessageDialog(null, "Debe seleccionar un archivo del tipo .java","ERROR", JOptionPane.ERROR_MESSAGE);
 					}
 
+				} else {
+					System.out.println("error");
 				}
 			}
 		});
