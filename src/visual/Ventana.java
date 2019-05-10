@@ -19,6 +19,7 @@ import javax.swing.JTextArea;
 import core.Clase;
 import core.GestorArchivo;
 import core.Metodo;
+import javax.swing.JTextField;
 
 public class Ventana extends JFrame {
 
@@ -28,6 +29,7 @@ public class Ventana extends JFrame {
 	private List<Clase> clases;
 	private JTextArea textArea;
 	private LinkedList<Metodo> metodos;
+	private JTextField textPredicado;
 	
 	public Ventana() {
 		getContentPane().setLayout(null);
@@ -53,8 +55,13 @@ public class Ventana extends JFrame {
 
 		textArea = new JTextArea();
 		textArea.setEditable(false);
-		textArea.setBounds(10, 118, 458, 299);
+		textArea.setBounds(10, 107, 316, 143);
 		getContentPane().add(textArea);
+		
+		textPredicado = new JTextField();
+		textPredicado.setBounds(336, 109, 86, 20);
+		getContentPane().add(textPredicado);
+		textPredicado.setColumns(10);
 		btnSeleccionarArchivo.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -114,6 +121,7 @@ public class Ventana extends JFrame {
 					Metodo metodo = it.next();
 					if (metodoElegida.equals(metodo.getNombre())) {
 						textArea.setText(metodo.toString());
+						textPredicado.setText(String.valueOf(metodo.predicados()));
 					}
 				}
 				
