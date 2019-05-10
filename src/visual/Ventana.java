@@ -62,7 +62,7 @@ public class Ventana extends JFrame {
 //								Metodo metodo = j.next();
 //								System.out.println("method " + metodo + " " + metodo.getTexto());
 //
-//								metodo.findIf();
+//								metodo.predicados();
 //							}
 						}
 
