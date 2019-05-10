@@ -3,6 +3,7 @@ package visual;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Iterator;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -12,7 +13,9 @@ import javax.swing.JOptionPane;
 import core.GestorArchivo;
 
 public class Ventana extends JFrame {
-	
+
+	private static final long serialVersionUID = -1838218182953168733L;
+
 	public Ventana() {
 		getContentPane().setLayout(null);
 		JButton btnSeleccionarArchivo = new JButton("Seleccionar Archivo");
@@ -26,9 +29,16 @@ public class Ventana extends JFrame {
 					String ruta = fileSelector.getSelectedFile().getPath();
 					if (ruta.contains(".java")) {
 						GestorArchivo gestorArchivo = new GestorArchivo(ruta);
-						System.out.println("clase '" + gestorArchivo.findClass() + "'");
+						System.out.println("clase '"
+								+ gestorArchivo.findClass() + "'");
+						for (Iterator<String> i = gestorArchivo.findMethods("")
+								.iterator(); i.hasNext();) {
+							System.out.println("method " + i.next());
+						}
 					} else {
-						JOptionPane.showMessageDialog(null, "Debe seleccionar un archivo del tipo .java","ERROR", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null,
+								"Debe seleccionar un archivo del tipo .java",
+								"ERROR", JOptionPane.ERROR_MESSAGE);
 					}
 
 				} else {
