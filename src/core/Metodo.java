@@ -4,9 +4,12 @@ import java.util.LinkedList;
 
 public class Metodo {
 
-	private static final String IF = "if ";
-	private static final String WHILE = "while ";
-	private static final String FOR = "for ";
+	private static final String IF = "if(";
+	private static final String IF_CON_ESPACIO = "if (";
+	private static final String WHILE = "while(";
+	private static final String WHILE_CON_ESPACIO = "while (";
+	private static final String FOR = "for(";
+	private static final String FOR_CON_ESPACIO = "for (";
 	private static final String AND = "&&";
 	private static final String OR = "||";
 	private String nombre = "";
@@ -37,8 +40,11 @@ public class Metodo {
 		for (int i = 0; i < texto.size(); i++) {
 			// TODO: alta complejidad hermano
 			predicados += contarPalabrasClave(i, IF);
+			predicados += contarPalabrasClave(i, IF_CON_ESPACIO);
 			predicados += contarPalabrasClave(i, WHILE);
+			predicados += contarPalabrasClave(i, WHILE_CON_ESPACIO);
 			predicados += contarPalabrasClave(i, FOR);
+			predicados += contarPalabrasClave(i, FOR_CON_ESPACIO);
 			predicados += contarPalabrasClave(i, AND);
 			predicados += contarPalabrasClave(i, OR);
 		}
