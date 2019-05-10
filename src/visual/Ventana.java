@@ -31,6 +31,7 @@ public class Ventana extends JFrame {
 	private LinkedList<Metodo> metodos;
 	private JTextField textLineasComentadas;
 	private JTextField textPredicados;
+	private JTextArea textLineasComentadasTotales;
 	
 	public Ventana() {
 		getContentPane().setLayout(null);
@@ -68,26 +69,16 @@ public class Ventana extends JFrame {
 		textPredicados.setColumns(10);
 		textPredicados.setBounds(338, 109, 86, 20);
 		getContentPane().add(textPredicados);
+		
+		textLineasComentadasTotales = new JTextArea();
+		textLineasComentadasTotales.setBounds(336, 74, 88, 22);
+		getContentPane().add(textLineasComentadasTotales);
 		btnSeleccionarArchivo.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				JFileChooser fileSelector = new JFileChooser();
-
-				if (fileSelector.showOpenDialog((Component) e.getSource()) == JFileChooser.APPROVE_OPTION) {
-					String ruta = fileSelector.getSelectedFile().getPath();
-					if (ruta.contains(".java")) { // Corroborar
-						GestorArchivo gestorArchivo = new GestorArchivo(ruta);
-						clases = gestorArchivo.findClass();
-						Iterator<Clase> it = clases.iterator();
-						while (it.hasNext()) {
-							comboBoxClase.addItem(it.next().getNombre());
-						}
-					}
-				} else {
-					JOptionPane.showMessageDialog(null, "Debe seleccionar un archivo del tipo .java", "ERROR",
-							JOptionPane.ERROR_MESSAGE);
-				}
+				leerArchivo(e);
 			}
+
 		});
 
 		comboBoxClase.addActionListener(new ActionListener() {
@@ -122,21 +113,43 @@ public class Ventana extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String metodoElegida = (String)comboBoxMetodo.getSelectedItem();
-				Iterator<Metodo> it = metodos.iterator();
-				while (it.hasNext()) {
-					Metodo metodo = it.next();
-					if (metodoElegida.equals(metodo.getNombre())) {
-						textArea.setText(metodo.toString());
-						textLineasComentadas.setText(String.valueOf(metodo.lineasComentadas()));
-						textPredicados.setText(String.valueOf(metodo.predicados()));
+				if (metodoElegida != null) {					
+					Iterator<Metodo> it = metodos.iterator();
+					while (it.hasNext()) {
+						Metodo metodo = it.next();
+						if (metodoElegida.equals(metodo.getNombre())) {
+							textArea.setText(metodo.toString());
+							textLineasComentadas.setText(String.valueOf(metodo.lineasComentadas()));
+							textPredicados.setText(String.valueOf(metodo.predicados()));
+						}
 					}
+					
+					System.out.println("elegio " + comboBoxMetodo.getSelectedItem());
 				}
-				
-				System.out.println("elegio " + comboBoxMetodo.getSelectedItem());
 			}
 		});
 	}
 
+	public void leerArchivo(ActionEvent e) {
+		JFileChooser fileSelector = new JFileChooser();
+
+		if (fileSelector.showOpenDialog((Component) e.getSource()) == JFileChooser.APPROVE_OPTION) {
+			String ruta = fileSelector.getSelectedFile().getPath();
+			if (ruta.contains(".java")) { // Corroborar
+				GestorArchivo gestorArchivo = new GestorArchivo(ruta);
+				clases = gestorArchivo.findClass();
+				Iterator<Clase> it = clases.iterator();
+				while (it.hasNext()) {
+					comboBoxClase.addItem(it.next().getNombre());
+				}
+				textLineasComentadasTotales.setText(String.valueOf(gestorArchivo.lineasComentadas()));
+			}
+		} else {
+			JOptionPane.showMessageDialog(null, "Debe seleccionar un archivo del tipo .java", "ERROR",
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
 	public static void main(String[] args) {
 		Ventana principal = new Ventana();
 		principal.setVisible(true);

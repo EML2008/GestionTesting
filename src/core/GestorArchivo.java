@@ -17,6 +17,9 @@ public class GestorArchivo {
 	private static final String KEY_CLOSE = "}";
 	private static final String KEY_OPEN = "{";
 
+	private static final String ASTERISCO = "*";
+	private static final String DOBLE_BARRA = "//";
+
 
 	public GestorArchivo(String ruta) {
 		Scanner sc;
@@ -88,6 +91,24 @@ public class GestorArchivo {
 			}
 		}
 		return this.classes;
+	}
+	
+	/**
+	 * Cuenta las lineas comentadas
+	 * 
+	 * @return
+	 */
+	public int lineasComentadas() {
+		int lineasComentadas = 0;
+		for (int i = 0; i < texto.size(); i++) {
+			if (texto.get(i).indexOf(ASTERISCO) != -1) {
+				lineasComentadas++;
+			}
+			if (texto.get(i).indexOf(DOBLE_BARRA) != -1) {
+				lineasComentadas++;
+			}
+		}
+		return lineasComentadas;
 	}
 
 	public List<Clase> getClasses() {
