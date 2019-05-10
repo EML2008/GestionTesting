@@ -4,10 +4,8 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Iterator;
-import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -15,6 +13,9 @@ import javax.swing.JOptionPane;
 import core.Clase;
 import core.GestorArchivo;
 import core.Metodo;
+import javax.swing.JTextArea;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 
 public class Ventana extends JFrame {
 
@@ -26,13 +27,26 @@ public class Ventana extends JFrame {
 		btnSeleccionarArchivo.setBounds(10, 11, 151, 23);
 		getContentPane().add(btnSeleccionarArchivo);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(11, 49, 151, 22);
-		getContentPane().add(comboBox);
+		JComboBox clasesComboBox = new JComboBox();
+		clasesComboBox.setBounds(10, 74, 151, 22);
+		getContentPane().add(clasesComboBox);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(175, 49, 151, 22);
-		getContentPane().add(comboBox_1);
+		JComboBox comboBoxMetodo = new JComboBox();
+		comboBoxMetodo.setBounds(175, 74, 151, 22);
+		getContentPane().add(comboBoxMetodo);
+		
+		JLabel lblClase = new JLabel("Clases");
+		lblClase.setBounds(10, 49, 48, 14);
+		getContentPane().add(lblClase);
+		
+		JLabel lblMetodo = new JLabel("Metodos");
+		lblMetodo.setBounds(175, 49, 92, 14);
+		getContentPane().add(lblMetodo);
+		
+		JTextArea textArea = new JTextArea();
+		textArea.setEditable(false);
+		textArea.setBounds(10, 118, 458, 299);
+		getContentPane().add(textArea);
 		btnSeleccionarArchivo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fileSelector = new JFileChooser();
@@ -44,13 +58,12 @@ public class Ventana extends JFrame {
 						for (Iterator<Clase> i = gestorArchivo.findClass().iterator(); i.hasNext();) { //Criptico hermano
 							Clase clase = i.next();
 							System.out.println("clase " + clase + " " + clase.getTexto());
-							List<Metodo> metodos = clase.findMethods();
-							for (int j = 0; j < metodos.size(); j++) {
-								Metodo metodo = metodos.get(j);
-								System.out.println("method " + metodo + " " + metodo.getTexto());
-
-								System.out.println("predicados " + metodo.predicados());
-							}
+//							for (Iterator<Metodo> j = clase.findMethods().iterator(); j.hasNext();) {
+//								Metodo metodo = j.next();
+//								System.out.println("method " + metodo + " " + metodo.getTexto());
+//
+//								metodo.findIf();
+//							}
 						}
 
 					} else {
