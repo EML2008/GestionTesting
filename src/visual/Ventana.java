@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import core.GestorArchivo;
+import core.Metodo;
 
 public class Ventana extends JFrame {
 
@@ -31,9 +32,10 @@ public class Ventana extends JFrame {
 						GestorArchivo gestorArchivo = new GestorArchivo(ruta);
 						System.out.println("clase '"
 								+ gestorArchivo.findClass() + "'");
-						for (Iterator<String> i = gestorArchivo.findMethods("")
+						for (Iterator<Metodo> i = gestorArchivo.findMethods("")
 								.iterator(); i.hasNext();) {
-							System.out.println("method " + i.next());
+							Metodo metodo = i.next();
+							System.out.println("method " + metodo + " " + metodo.getTexto());
 						}
 					} else {
 						JOptionPane.showMessageDialog(null,

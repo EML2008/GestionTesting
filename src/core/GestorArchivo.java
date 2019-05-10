@@ -74,25 +74,23 @@ public class GestorArchivo {
 	 * 
 	 * @param clase
 	 */
-	public LinkedList<String> findMethods(String clase) {
-		LinkedList<String> methods = new LinkedList<String>();
+	public LinkedList<Metodo> findMethods(String clase) {
+		LinkedList<Metodo> methods = new LinkedList<Metodo>();
 		String inicioMetodo;
+		String metodo = null;
 		int llaves_abiertas = 0;
 		String bufferMethod = "";
 		boolean dentro_metodo = false;
 		for (int i = 0; i < texto.size(); i++) {
-			if (texto.get(i).indexOf(PARENTHESIS_KEY_OPEN) >= 0) {
+			if (dentro_metodo == false && texto.get(i).indexOf(PARENTHESIS_KEY_OPEN) >= 0) {
 				inicioMetodo = texto.get(i).substring(0,
 						texto.get(i).indexOf(PARENTHESIS_KEY_OPEN));
 
-				System.out.println("inicio " + inicioMetodo);
 				String reemplazo[] = inicioMetodo.split(" ");
 				for (int j = 0; j < reemplazo.length; j++) {
-					System.out.println("palabra " + reemplazo[j]);
 					if (reemplazo[j].matches("\\w+\\(.*")) {
 						dentro_metodo = true;
-						System.out.println("reemp " + reemplazo[j]);
-						methods.add(reemplazo[j].substring(0, reemplazo[j].indexOf("(")));
+						metodo = reemplazo[j].substring(0, reemplazo[j].indexOf("("));
 					}
 				}
 			}
@@ -107,7 +105,7 @@ public class GestorArchivo {
 				llaves_abiertas--;
 			}
 			if (dentro_metodo && llaves_abiertas == 0) {
-				System.out.println(bufferMethod);
+				methods.add(new Metodo(metodo, bufferMethod));
 				bufferMethod = "";
 				dentro_metodo = false;
 			}
