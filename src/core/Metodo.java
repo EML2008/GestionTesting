@@ -86,6 +86,7 @@ public class Metodo {
 
 	@Override
 	public String toString() {
-		return "Metodo [nombre=" + nombre + "]";
+		return "Metodo [nombre=" + nombre + ", texto=" + texto + "]";
 	}
+
 }

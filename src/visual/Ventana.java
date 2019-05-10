@@ -3,7 +3,10 @@ package visual;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -15,22 +18,28 @@ import javax.swing.JTextArea;
 
 import core.Clase;
 import core.GestorArchivo;
+import core.Metodo;
 
 public class Ventana extends JFrame {
 
 	private static final long serialVersionUID = -1838218182953168733L;
-
+	private static JComboBox<String> comboBoxClase;
+	private static JComboBox<String> comboBoxMetodo;
+	private List<Clase> clases;
+	private JTextArea textArea;
+	private LinkedList<Metodo> metodos;
+	
 	public Ventana() {
 		getContentPane().setLayout(null);
 		JButton btnSeleccionarArchivo = new JButton("Seleccionar Archivo");
 		btnSeleccionarArchivo.setBounds(10, 11, 151, 23);
 		getContentPane().add(btnSeleccionarArchivo);
 
-		JComboBox<Object> comboBoxClase = new JComboBox();
+		comboBoxClase = new JComboBox<String>();
 		comboBoxClase.setBounds(10, 74, 151, 22);
 		getContentPane().add(comboBoxClase);
 
-		JComboBox<?> comboBoxMetodo = new JComboBox();
+		comboBoxMetodo = new JComboBox<String>();
 		comboBoxMetodo.setBounds(175, 74, 151, 22);
 		getContentPane().add(comboBoxMetodo);
 
@@ -42,11 +51,12 @@ public class Ventana extends JFrame {
 		lblMetodo.setBounds(175, 49, 92, 14);
 		getContentPane().add(lblMetodo);
 
-		JTextArea textArea = new JTextArea();
+		textArea = new JTextArea();
 		textArea.setEditable(false);
 		textArea.setBounds(10, 118, 458, 299);
 		getContentPane().add(textArea);
 		btnSeleccionarArchivo.addActionListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fileSelector = new JFileChooser();
 
@@ -54,9 +64,10 @@ public class Ventana extends JFrame {
 					String ruta = fileSelector.getSelectedFile().getPath();
 					if (ruta.contains(".java")) { // Corroborar
 						GestorArchivo gestorArchivo = new GestorArchivo(ruta);
-						Iterator<Clase> it = gestorArchivo.findClass().iterator();
+						clases = gestorArchivo.findClass();
+						Iterator<Clase> it = clases.iterator();
 						while (it.hasNext()) {
-							comboBoxClase.addItem((Object) it.next().getNombre());
+							comboBoxClase.addItem(it.next().getNombre());
 						}
 					}
 				} else {
@@ -66,6 +77,49 @@ public class Ventana extends JFrame {
 			}
 		});
 
+		comboBoxClase.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String claseElegida = (String)comboBoxClase.getSelectedItem();
+				Iterator<Clase> it = clases.iterator();
+				comboBoxMetodo.removeAllItems();
+				while (it.hasNext()) {
+					Clase clase = it.next();
+					if (claseElegida.equals(clase.getNombre())) {
+						metodos = clase.findMethods();
+						for (Metodo metodo : metodos) {
+							
+						}
+						Iterator<Metodo> metodo = metodos.iterator();
+						while (metodo.hasNext()) {
+							Metodo metodo1 = metodo.next();
+							comboBoxMetodo.addItem(metodo1.getNombre());
+							textArea.setText(metodo1.toString());
+						}
+					}
+				}
+				
+				System.out.println("elegio " + comboBoxMetodo.getSelectedItem());
+			}
+		});
+		
+		comboBoxMetodo.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String metodoElegida = (String)comboBoxMetodo.getSelectedItem();
+				Iterator<Metodo> it = metodos.iterator();
+				while (it.hasNext()) {
+					Metodo metodo = it.next();
+					if (metodoElegida.equals(metodo.getNombre())) {
+						textArea.setText(metodo.toString());
+					}
+				}
+				
+				System.out.println("elegio " + comboBoxMetodo.getSelectedItem());
+			}
+		});
 	}
 
 	public static void main(String[] args) {
