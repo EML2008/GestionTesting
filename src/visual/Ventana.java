@@ -35,15 +35,13 @@ public class Ventana extends JFrame {
 						for (Iterator<Clase> i = gestorArchivo.findClass().iterator(); i.hasNext();) {
 							Clase clase = i.next();
 							System.out.println("clase " + clase + " " + clase.getTexto());
+							for (Iterator<Metodo> j = clase.findMethods()
+									.iterator(); j.hasNext();) {
+								Metodo metodo = j.next();
+								System.out.println("method " + metodo + " " + metodo.getTexto());
+							}
 						}
 						
-						//System.out.println("clase '" + gestorArchivo.findClass() + "'");
-						
-						for (Iterator<Metodo> i = gestorArchivo.findMethods("")
-								.iterator(); i.hasNext();) {
-							Metodo metodo = i.next();
-							System.out.println("method " + metodo + " " + metodo.getTexto());
-						}
 					} else {
 						JOptionPane.showMessageDialog(null,
 								"Debe seleccionar un archivo del tipo .java",
