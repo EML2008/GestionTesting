@@ -10,6 +10,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import core.Clase;
 import core.GestorArchivo;
 import core.Metodo;
 
@@ -30,8 +31,14 @@ public class Ventana extends JFrame {
 					String ruta = fileSelector.getSelectedFile().getPath();
 					if (ruta.contains(".java")) {
 						GestorArchivo gestorArchivo = new GestorArchivo(ruta);
-						System.out.println("clase '"
-								+ gestorArchivo.findClass() + "'");
+						
+						for (Iterator<Clase> i = gestorArchivo.findClass().iterator(); i.hasNext();) {
+							Clase clase = i.next();
+							System.out.println("clase " + clase + " " + clase.getTexto());
+						}
+						
+						//System.out.println("clase '" + gestorArchivo.findClass() + "'");
+						
 						for (Iterator<Metodo> i = gestorArchivo.findMethods("")
 								.iterator(); i.hasNext();) {
 							Metodo metodo = i.next();

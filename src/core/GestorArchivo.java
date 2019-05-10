@@ -9,13 +9,13 @@ import java.util.Scanner;
 public class GestorArchivo {
 
 	List<String> texto = new LinkedList<String>();
-	String clase = "";
+	private List<Clase> classes = new LinkedList<Clase>();
 	private static final String CLASS = "class ";
-	private static final String CLASS_KEY_OPEN = " {";
-	private static final String KEY_OPEN = "{";
 	private static final String CLASS_EXTENDS = " extends ";
 	private static final String CLASS_IMPLEMENTS = " implements ";
+	private static final String CLASS_KEY_OPEN = " {";
 	private static final String KEY_CLOSE = "}";
+	private static final String KEY_OPEN = "{";
 	/**
 	 * como deberia cerrar un metodo, si lo cierra sin espacio no es programador.
 	 */
@@ -38,41 +38,60 @@ public class GestorArchivo {
 	/**
 	 * Buscar las clases en el archivo
 	 */
-	public String findClass() {
+	public List<Clase> findClass() {
 
 		String inicioClase;
+		String clase = null;
+		int llaves_abiertas = 0;
+		String bufferClass = "";
+		boolean dentro_clase = false;
 		for (int i = 0; i < texto.size(); i++) {
-			if (texto.get(i).lastIndexOf(CLASS) > 0) {
+			if (dentro_clase == false && texto.get(i).lastIndexOf(CLASS) > 0) {
 				inicioClase = texto.get(i).substring(
 						texto.get(i).lastIndexOf(CLASS));
 
 				if (inicioClase.lastIndexOf(CLASS_KEY_OPEN) > 0) {
-
-					this.clase = inicioClase.substring(CLASS.length(),
+					dentro_clase = true;
+					clase = inicioClase.substring(CLASS.length(),
 							inicioClase.lastIndexOf(CLASS_KEY_OPEN));
 
 					if (inicioClase.lastIndexOf(CLASS_EXTENDS) > 0) {
-						this.clase = inicioClase.substring(CLASS.length(),
+						clase = inicioClase.substring(CLASS.length(),
 								inicioClase.lastIndexOf(CLASS_EXTENDS));
 
 					} else {
 
 						if (inicioClase.lastIndexOf(CLASS_IMPLEMENTS) > 0) {
-							this.clase = inicioClase.substring(CLASS.length(),
+							clase = inicioClase.substring(CLASS.length(),
 									inicioClase.lastIndexOf(CLASS_IMPLEMENTS));
 						}
 					}
 				}
 
 			}
+			if (dentro_clase) {
+				bufferClass = bufferClass + texto.get(i);
+			}
+			if (dentro_clase && texto.get(i).indexOf(CLASS_KEY_OPEN) >= 0) {
+				llaves_abiertas++;
+			}
+			
+			if (dentro_clase && texto.get(i).indexOf(CLASS_KEY_OPEN) >= 0) {
+				llaves_abiertas--;
+			}
+			if (dentro_clase && llaves_abiertas == 0) {
+				classes .add(new Clase(clase, bufferClass));
+				bufferClass = "";
+				dentro_clase = false;
+			}
 		}
-		return this.clase;
+		return this.classes;
 	}
 
 	/**
 	 * Busca los metodos de la clase
 	 * 
-	 * @param clase
+	 * @param dentro_metodo == false && clase
 	 */
 	public LinkedList<Metodo> findMethods(String clase) {
 		LinkedList<Metodo> methods = new LinkedList<Metodo>();
@@ -81,6 +100,7 @@ public class GestorArchivo {
 		int llaves_abiertas = 0;
 		String bufferMethod = "";
 		boolean dentro_metodo = false;
+		
 		for (int i = 0; i < texto.size(); i++) {
 			if (dentro_metodo == false && texto.get(i).indexOf(PARENTHESIS_KEY_OPEN) >= 0) {
 				inicioMetodo = texto.get(i).substring(0,
@@ -88,6 +108,7 @@ public class GestorArchivo {
 
 				String reemplazo[] = inicioMetodo.split(" ");
 				for (int j = 0; j < reemplazo.length; j++) {
+					
 					if (reemplazo[j].matches("\\w+\\(.*")) {
 						dentro_metodo = true;
 						metodo = reemplazo[j].substring(0, reemplazo[j].indexOf("("));
@@ -112,5 +133,4 @@ public class GestorArchivo {
 		}
 		return methods;
 	}
-
 }
