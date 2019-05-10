@@ -7,6 +7,7 @@ public class Metodo {
 	private static final String IF = "if ";
 	private static final String ELSE = "else ";
 	private static final String ELSEIF = "elseif ";
+	private static final String AND = "AND ";
 	private String nombre = "";
 	private LinkedList<String> texto = new LinkedList<String>();
 	private int cantidadIf = 0;
@@ -35,6 +36,11 @@ public class Metodo {
 			if (texto.get(i).indexOf(IF) >= 0) {
 				cantidadIf++;
 				System.out.println("tiene if " + texto.get(i));
+				String remanzo = texto.get(i).substring(texto.get(i).indexOf(IF));
+				if (remanzo.indexOf(AND) >= 0) {
+					System.out.println("tiene and " + texto.get(i));
+					
+				}
 			}
 			
 			if (texto.get(i).indexOf(ELSE) >= 0) {
