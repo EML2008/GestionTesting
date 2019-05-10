@@ -4,12 +4,12 @@ import java.util.LinkedList;
 
 public class Metodo {
 
-	private String nombre = "";
-	private LinkedList<String> texto = new LinkedList<String>();
-	
 	private static final String IF = "if ";
 	private static final String ELSE = "else ";
 	private static final String ELSEIF = "elseif ";
+	private String nombre = "";
+	private LinkedList<String> texto = new LinkedList<String>();
+	private int cantidadIf = 0;
 	
 	public Metodo(String nombre, LinkedList<String> texto) {
 		super();
@@ -25,9 +25,15 @@ public class Metodo {
 		return texto;
 	}
 	
+	/**
+	 * Pienso que contar la cantiada de if y dentro de cada if ver si tiene OR o AND y hacer la cuenta.
+	 * 
+	 * @return
+	 */
 	public LinkedList<String> findIf() {
 		for (int i = 0; i < texto.size(); i++) {
 			if (texto.get(i).indexOf(IF) >= 0) {
+				cantidadIf++;
 				System.out.println("tiene if " + texto.get(i));
 			}
 			
@@ -39,6 +45,8 @@ public class Metodo {
 				System.out.println("tiene elseif " + texto.get(i));
 			}
 		}
+		
+		System.out.println("hay " + cantidadIf + " if");
 		return null;
 	}
 
