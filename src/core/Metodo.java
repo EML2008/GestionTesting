@@ -12,6 +12,7 @@ public class Metodo {
 	private static final String FOR_CON_ESPACIO = "for (";
 	private static final String AND = "&&";
 	private static final String OR = "||";
+	private static final String TERNARIO = "?";
 	private String nombre = "";
 	private LinkedList<String> texto = new LinkedList<String>();
 
@@ -47,6 +48,7 @@ public class Metodo {
 			predicados += contarPalabrasClave(i, FOR_CON_ESPACIO);
 			predicados += contarPalabrasClave(i, AND);
 			predicados += contarPalabrasClave(i, OR);
+			predicados += contarPalabrasClave(i, TERNARIO);
 		}
 		return predicados;
 	}
