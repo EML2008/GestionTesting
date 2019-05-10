@@ -7,7 +7,7 @@ public class Metodo {
 	private static final String IF = "if ";
 	private static final String ELSE = "else ";
 	private static final String ELSEIF = "elseif ";
-	private static final String AND = "and ";
+	private static final String AND = "&& ";
 	private String nombre = "";
 	private LinkedList<String> texto = new LinkedList<String>();
 	private int cantidadIf = 0;
