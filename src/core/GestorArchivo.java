@@ -82,7 +82,7 @@ public class GestorArchivo {
 				llaves_abiertas--;
 			}
 			if (dentro_clase && llaves_abiertas == 0) {
-				classes .add(new Clase(clase, bufferClass));
+				classes.add(new Clase(clase, bufferClass));
 				bufferClass = new LinkedList<String>();
 				dentro_clase = false;
 			}

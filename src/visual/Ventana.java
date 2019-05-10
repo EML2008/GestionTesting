@@ -26,8 +26,8 @@ public class Ventana extends JFrame {
 		btnSeleccionarArchivo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fileSelector = new JFileChooser();
-				int rtn = fileSelector.showOpenDialog((Component) e.getSource());
-				if (rtn == JFileChooser.APPROVE_OPTION) {
+				
+				if (fileSelector.showOpenDialog((Component) e.getSource()) == JFileChooser.APPROVE_OPTION) {
 					String ruta = fileSelector.getSelectedFile().getPath();
 					if (ruta.contains(".java")) {
 						GestorArchivo gestorArchivo = new GestorArchivo(ruta);
@@ -39,6 +39,8 @@ public class Ventana extends JFrame {
 									.iterator(); j.hasNext();) {
 								Metodo metodo = j.next();
 								System.out.println("method " + metodo + " " + metodo.getTexto());
+								
+								metodo.findIf();
 							}
 						}
 						

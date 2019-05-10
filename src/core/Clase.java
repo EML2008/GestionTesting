@@ -37,7 +37,7 @@ public class Clase {
 		String inicioMetodo;
 		String metodo = null;
 		int llaves_abiertas = 0;
-		String bufferMethod = "";
+		LinkedList<String> bufferMethod = new LinkedList<String>();
 		boolean dentro_metodo = false;
 		
 		for (int i = 0; i < texto.size(); i++) {
@@ -55,7 +55,7 @@ public class Clase {
 				}
 			}
 			if (dentro_metodo) {
-				bufferMethod = bufferMethod + texto.get(i) + "\n";
+				bufferMethod.add(texto.get(i));
 			}
 			if (dentro_metodo && texto.get(i).indexOf(KEY_OPEN) >= 0) {
 				llaves_abiertas++;
@@ -66,7 +66,7 @@ public class Clase {
 			}
 			if (dentro_metodo && llaves_abiertas == 0) {
 				methods.add(new Metodo(metodo, bufferMethod));
-				bufferMethod = "";
+				bufferMethod = new LinkedList<String>();
 				dentro_metodo = false;
 			}
 		}
