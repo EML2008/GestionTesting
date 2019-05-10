@@ -26,23 +26,23 @@ public class Ventana extends JFrame {
 		JButton btnSeleccionarArchivo = new JButton("Seleccionar Archivo");
 		btnSeleccionarArchivo.setBounds(10, 11, 151, 23);
 		getContentPane().add(btnSeleccionarArchivo);
-		
-		JComboBox clasesComboBox = new JComboBox();
-		clasesComboBox.setBounds(10, 74, 151, 22);
-		getContentPane().add(clasesComboBox);
-		
+
+		JComboBox comboBoxClase = new JComboBox();
+		comboBoxClase.setBounds(10, 74, 151, 22);
+		getContentPane().add(comboBoxClase);
+
 		JComboBox comboBoxMetodo = new JComboBox();
 		comboBoxMetodo.setBounds(175, 74, 151, 22);
 		getContentPane().add(comboBoxMetodo);
-		
+
 		JLabel lblClase = new JLabel("Clases");
 		lblClase.setBounds(10, 49, 48, 14);
 		getContentPane().add(lblClase);
-		
+
 		JLabel lblMetodo = new JLabel("Metodos");
 		lblMetodo.setBounds(175, 49, 92, 14);
 		getContentPane().add(lblMetodo);
-		
+
 		JTextArea textArea = new JTextArea();
 		textArea.setEditable(false);
 		textArea.setBounds(10, 118, 458, 299);
@@ -53,29 +53,20 @@ public class Ventana extends JFrame {
 
 				if (fileSelector.showOpenDialog((Component) e.getSource()) == JFileChooser.APPROVE_OPTION) {
 					String ruta = fileSelector.getSelectedFile().getPath();
-					if (ruta.contains(".java")) {
+					if (ruta.matches(".java$")) { // Corroborar
 						GestorArchivo gestorArchivo = new GestorArchivo(ruta);
-						for (Iterator<Clase> i = gestorArchivo.findClass().iterator(); i.hasNext();) { //Criptico hermano
-							Clase clase = i.next();
-							System.out.println("clase " + clase + " " + clase.getTexto());
-//							for (Iterator<Metodo> j = clase.findMethods().iterator(); j.hasNext();) {
-//								Metodo metodo = j.next();
-//								System.out.println("method " + metodo + " " + metodo.getTexto());
-//
-//								metodo.findIf();
-//							}
+						Iterator<Clase> it = gestorArchivo.findClass().iterator();
+						while (it.hasNext()) {
+							comboBoxClase.addItem((Object) it.next().getNombre());
 						}
-
-					} else {
-						JOptionPane.showMessageDialog(null, "Debe seleccionar un archivo del tipo .java", "ERROR",
-								JOptionPane.ERROR_MESSAGE);
 					}
-
 				} else {
-					System.out.println("error");
+					JOptionPane.showMessageDialog(null, "Debe seleccionar un archivo del tipo .java", "ERROR",
+							JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
+
 	}
 
 	public static void main(String[] args) {
