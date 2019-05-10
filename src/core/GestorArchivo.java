@@ -11,9 +11,11 @@ public class GestorArchivo {
 	List<String> texto = new LinkedList<String>();
 	String clase = "";
 	private static final String CLASS = "class ";
-	private static final String KEY_OPEN = " {";
+	private static final String CLASS_KEY_OPEN = " {";
+	private static final String KEY_OPEN = "{";
 	private static final String CLASS_EXTENDS = " extends ";
 	private static final String CLASS_IMPLEMENTS = " implements ";
+	private static final String KEY_CLOSE = "}";
 	/**
 	 * como deberia cerrar un metodo, si lo cierra sin espacio no es programador.
 	 */
@@ -44,10 +46,10 @@ public class GestorArchivo {
 				inicioClase = texto.get(i).substring(
 						texto.get(i).lastIndexOf(CLASS));
 
-				if (inicioClase.lastIndexOf(KEY_OPEN) > 0) {
+				if (inicioClase.lastIndexOf(CLASS_KEY_OPEN) > 0) {
 
 					this.clase = inicioClase.substring(CLASS.length(),
-							inicioClase.lastIndexOf(KEY_OPEN));
+							inicioClase.lastIndexOf(CLASS_KEY_OPEN));
 
 					if (inicioClase.lastIndexOf(CLASS_EXTENDS) > 0) {
 						this.clase = inicioClase.substring(CLASS.length(),
@@ -75,6 +77,9 @@ public class GestorArchivo {
 	public LinkedList<String> findMethods(String clase) {
 		LinkedList<String> methods = new LinkedList<String>();
 		String inicioMetodo;
+		int llaves_abiertas = 0;
+		String bufferMethod = "";
+		boolean dentro_metodo = false;
 		for (int i = 0; i < texto.size(); i++) {
 			if (texto.get(i).lastIndexOf(PARENTHESIS_KEY_OPEN) > 0) {
 				inicioMetodo = texto.get(i).substring(0,
@@ -83,10 +88,27 @@ public class GestorArchivo {
 				String reemplazo[] = inicioMetodo.split(" ");
 				for (int j = 0; j < reemplazo.length; j++) {
 					if (reemplazo[j].matches("\\w+\\(\\w*")) {
-						
+						dentro_metodo = true;
 						methods.add(reemplazo[j].substring(0, reemplazo[j].indexOf("(")));
 					}
 				}
+			}
+			if (dentro_metodo) {
+				bufferMethod = bufferMethod + texto.get(i);
+			}
+			if (dentro_metodo && texto.get(i).indexOf(KEY_OPEN) >= 0) {
+				System.out.println("aumento la llave");
+				llaves_abiertas++;
+			}
+			
+			if (dentro_metodo && texto.get(i).indexOf(KEY_CLOSE) >= 0) {
+				System.out.println("disminuyo la llave");
+				llaves_abiertas--;
+			}
+			if (dentro_metodo && llaves_abiertas == 0) {
+				System.out.println(bufferMethod);
+				bufferMethod = "";
+				dentro_metodo = false;
 			}
 		}
 		return methods;
