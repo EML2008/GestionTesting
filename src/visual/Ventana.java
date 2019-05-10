@@ -29,7 +29,8 @@ public class Ventana extends JFrame {
 	private List<Clase> clases;
 	private JTextArea textArea;
 	private LinkedList<Metodo> metodos;
-	private JTextField textPredicado;
+	private JTextField textLineasComentadas;
+	private JTextField textPredicados;
 	
 	public Ventana() {
 		getContentPane().setLayout(null);
@@ -58,10 +59,15 @@ public class Ventana extends JFrame {
 		textArea.setBounds(10, 107, 316, 143);
 		getContentPane().add(textArea);
 		
-		textPredicado = new JTextField();
-		textPredicado.setBounds(336, 109, 86, 20);
-		getContentPane().add(textPredicado);
-		textPredicado.setColumns(10);
+		textLineasComentadas = new JTextField();
+		textLineasComentadas.setBounds(338, 159, 86, 20);
+		getContentPane().add(textLineasComentadas);
+		textLineasComentadas.setColumns(10);
+		
+		textPredicados = new JTextField();
+		textPredicados.setColumns(10);
+		textPredicados.setBounds(338, 109, 86, 20);
+		getContentPane().add(textPredicados);
 		btnSeleccionarArchivo.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -121,7 +127,8 @@ public class Ventana extends JFrame {
 					Metodo metodo = it.next();
 					if (metodoElegida.equals(metodo.getNombre())) {
 						textArea.setText(metodo.toString());
-						textPredicado.setText(String.valueOf(metodo.predicados()));
+						textLineasComentadas.setText(String.valueOf(metodo.lineasComentadas()));
+						textPredicados.setText(String.valueOf(metodo.predicados()));
 					}
 				}
 				
