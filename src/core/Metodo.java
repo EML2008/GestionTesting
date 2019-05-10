@@ -36,8 +36,17 @@ public class Metodo {
 			if (texto.get(i).indexOf(IF) >= 0) {
 				cantidadIf++;
 				System.out.println("tiene if " + texto.get(i));
-				String remanzo = texto.get(i).substring(texto.get(i).indexOf(IF));
-				if (remanzo.indexOf(AND) >= 0) {
+				
+				int fromIndex = 0;
+				int count = 0;
+				 while ((fromIndex = texto.get(i).indexOf(IF, fromIndex)) != -1 ){
+			            System.out.println("Found at index: " + fromIndex);
+			            count++;
+					fromIndex++;
+
+				}
+				 
+				if (texto.get(i).indexOf(AND) >= 0) {
 					System.out.println("tiene and " + texto.get(i));
 					
 				}
