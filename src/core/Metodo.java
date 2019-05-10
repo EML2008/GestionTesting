@@ -12,6 +12,10 @@ public class Metodo {
 	private static final String FOR_CON_ESPACIO = "for (";
 	private static final String AND = "&&";
 	private static final String OR = "||";
+	private static final String TERNARIO = "?";
+	private static final String ASTERISCO = "*";
+	private static final String DOBLE_BARRA = "//";
+	
 	private String nombre = "";
 	private LinkedList<String> texto = new LinkedList<String>();
 
@@ -47,6 +51,7 @@ public class Metodo {
 			predicados += contarPalabrasClave(i, FOR_CON_ESPACIO);
 			predicados += contarPalabrasClave(i, AND);
 			predicados += contarPalabrasClave(i, OR);
+			predicados += contarPalabrasClave(i, TERNARIO);
 		}
 		return predicados;
 	}
@@ -59,6 +64,24 @@ public class Metodo {
 			fromIndex++;
 		}
 		return predicados;
+	}
+
+	/**
+	 * Cuenta las lineas comentadas
+	 * 
+	 * @return
+	 */
+	public int lineasComentadas() {
+		int lineasComentadas = 0;
+		for (int i = 0; i < texto.size(); i++) {
+			if (texto.get(i).indexOf(ASTERISCO) != -1) {
+				lineasComentadas++;
+			}
+			if (texto.get(i).indexOf(DOBLE_BARRA) != -1) {
+				lineasComentadas++;
+			}
+		}
+		return lineasComentadas;
 	}
 
 	@Override
