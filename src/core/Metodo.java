@@ -5,17 +5,6 @@ import java.util.LinkedList;
 public class Metodo {
 	//TODO: El puma va a reemplazar todo por sin espacio y tiene que buscar donde se usa
 	//TODO: hacer un promedio de
-	private static final String IF = "if(";
-	private static final String IF_CON_ESPACIO = "if (";
-	private static final String WHILE = "while(";
-	private static final String WHILE_CON_ESPACIO = "while (";
-	private static final String FOR = "for(";
-	private static final String FOR_CON_ESPACIO = "for (";
-	private static final String AND = "&&";
-	private static final String OR = "||";
-	private static final String TERNARIO = "?";
-	private static final String ASTERISCO = "*";
-	private static final String DOBLE_BARRA = "//";
 	
 	private String nombre = "";
 	private LinkedList<String> texto = new LinkedList<String>();
@@ -44,15 +33,15 @@ public class Metodo {
 		int predicados = 0;
 		for (int i = 0; i < texto.size(); i++) {
 			// TODO: alta complejidad hermano
-			predicados += contarPalabrasClave(i, IF);
-			predicados += contarPalabrasClave(i, IF_CON_ESPACIO);
-			predicados += contarPalabrasClave(i, WHILE);
-			predicados += contarPalabrasClave(i, WHILE_CON_ESPACIO);
-			predicados += contarPalabrasClave(i, FOR);
-			predicados += contarPalabrasClave(i, FOR_CON_ESPACIO);
-			predicados += contarPalabrasClave(i, AND);
-			predicados += contarPalabrasClave(i, OR);
-			predicados += contarPalabrasClave(i, TERNARIO);
+			predicados += contarPalabrasClave(i, Constantes.IF);
+			predicados += contarPalabrasClave(i, Constantes.IF_CON_ESPACIO);
+			predicados += contarPalabrasClave(i, Constantes.WHILE);
+			predicados += contarPalabrasClave(i, Constantes.WHILE_CON_ESPACIO);
+			predicados += contarPalabrasClave(i, Constantes.FOR);
+			predicados += contarPalabrasClave(i, Constantes.FOR_CON_ESPACIO);
+			predicados += contarPalabrasClave(i, Constantes.AND);
+			predicados += contarPalabrasClave(i, Constantes.OR);
+			predicados += contarPalabrasClave(i, Constantes.TERNARIO);
 		}
 		return predicados;
 	}
@@ -75,10 +64,10 @@ public class Metodo {
 	public int lineasComentadas() {
 		int lineasComentadas = 0;
 		for (int i = 0; i < texto.size(); i++) {
-			if (texto.get(i).indexOf(ASTERISCO) != -1) {
+			if (texto.get(i).indexOf(Constantes.ASTERISCO) != -1) {
 				lineasComentadas++;
 			}
-			if (texto.get(i).indexOf(DOBLE_BARRA) != -1) {
+			if (texto.get(i).indexOf(Constantes.DOBLE_BARRA) != -1) {
 				lineasComentadas++;
 			}
 		}
@@ -93,6 +82,31 @@ public class Metodo {
 			
 		}
 		return ret;
+	}
+	
+	public String toHtml() {
+		String ret = "";
+		for (int i = 0; i < texto.size(); i++) {
+			ret += (i+1) + " " + texto.get(i) + "\n";
+			
+		}
+
+		ret = ret.replace(Constantes.IF, "<font color=\"red\">" + Constantes.IF + "</font>");
+		ret = ret.replace(Constantes.IF_CON_ESPACIO,
+				"<font color=\"red\">" + Constantes.IF_CON_ESPACIO + "</font>");
+		ret = ret.replace(Constantes.FOR, "<font color=\"red\">" + Constantes.FOR + "</font>");
+		ret = ret.replace(Constantes.FOR_CON_ESPACIO,
+				"<font color=\"red\">" + Constantes.FOR_CON_ESPACIO + "</font>");
+		ret = ret.replace(Constantes.WHILE, "<font color=\"red\">" + Constantes.WHILE + "</font>");
+		ret = ret.replace(Constantes.WHILE_CON_ESPACIO,
+				"<font color=\"red\">" + Constantes.WHILE_CON_ESPACIO + "</font>");
+		ret = ret.replace(Constantes.AND, "<font color=\"red\">" + Constantes.AND+ "</font>");
+		ret = ret.replace(Constantes.OR, "<font color=\"red\">" + Constantes.OR + "</font>");
+		ret = ret.replace(Constantes.TERNARIO, "<font color=\"red\">" + Constantes.TERNARIO + "</font>");
+		
+		ret = ret.replace("\n", "<br>");
+		ret = ret.replace("\t", "&nbsp;&nbsp;");
+		return "<html><font color=\"#58FF33\">" + ret + "</font></html>";
 	}
 
 }

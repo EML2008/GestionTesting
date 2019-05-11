@@ -14,10 +14,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyleContext;
 import javax.swing.text.html.HTMLEditorKit;
 
 import core.Clase;
@@ -39,11 +35,11 @@ public class Ventana extends JFrame {
 	private JTextPane textLineasComentadasMetodo;
 	private JTextPane textLineasMetodo;
 	private JTextPane textPredicadosMetodo;
-	
+
 	public Ventana() {
 		getContentPane().setLayout(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
+
 		JButton btnSeleccionarArchivo = new JButton("Seleccionar Archivo");
 		btnSeleccionarArchivo.setBounds(10, 11, 151, 23);
 		getContentPane().add(btnSeleccionarArchivo);
@@ -70,75 +66,75 @@ public class Ventana extends JFrame {
 		textCodigo.setEditable(false);
 		textCodigo.setBounds(10, 107, 499, 322);
 		getContentPane().add(textCodigo);
-		
+
 		JLabel lblArchivo = new JLabel("Archivo");
 		lblArchivo.setBounds(555, 24, 46, 22);
 		getContentPane().add(lblArchivo);
-		
+
 		JLabel lblLineasArchivo = new JLabel("Lineas");
 		lblLineasArchivo.setBounds(535, 42, 107, 22);
 		getContentPane().add(lblLineasArchivo);
-		
+
 		textLineasArchivo = new JTextPane();
 		textLineasArchivo.setBounds(635, 42, 43, 22);
 		getContentPane().add(textLineasArchivo);
-		
+
 		JLabel lblLineasComentadasArchivo = new JLabel("Comentadas");
 		lblLineasComentadasArchivo.setBounds(535, 68, 107, 22);
 		getContentPane().add(lblLineasComentadasArchivo);
-		
+
 		textLineasComentadasArchivo = new JTextPane();
 		textLineasComentadasArchivo.setBounds(635, 68, 43, 22);
 		getContentPane().add(textLineasComentadasArchivo);
-		
+
 		JLabel lblClase = new JLabel("Clase");
 		lblClase.setBounds(555, 130, 46, 22);
 		getContentPane().add(lblClase);
-		
+
 		JLabel lblLineasClase = new JLabel("Lineas");
 		lblLineasClase.setBounds(535, 151, 107, 22);
 		getContentPane().add(lblLineasClase);
-		
+
 		textLineasClase = new JTextPane();
 		textLineasClase.setBounds(635, 151, 43, 22);
 		getContentPane().add(textLineasClase);
-		
+
 		JLabel lblLineasComentadasClase = new JLabel("Comentadas");
 		lblLineasComentadasClase.setBounds(535, 177, 107, 22);
 		getContentPane().add(lblLineasComentadasClase);
-		
+
 		textLineasComentadasClase = new JTextPane();
 		textLineasComentadasClase.setBounds(635, 177, 43, 22);
 		getContentPane().add(textLineasComentadasClase);
-		
+
 		JLabel lblMetodo = new JLabel("Metodo");
 		lblMetodo.setBounds(555, 263, 46, 22);
 		getContentPane().add(lblMetodo);
-		
+
 		JLabel lblLineasComentadasMetodo = new JLabel("Comentadas");
 		lblLineasComentadasMetodo.setBounds(535, 312, 107, 22);
 		getContentPane().add(lblLineasComentadasMetodo);
-		
+
 		textLineasComentadasMetodo = new JTextPane();
 		textLineasComentadasMetodo.setBounds(635, 312, 43, 22);
 		getContentPane().add(textLineasComentadasMetodo);
-		
+
 		JLabel lblCc = new JLabel("C.C.");
 		lblCc.setBounds(535, 338, 107, 22);
 		getContentPane().add(lblCc);
-		
+
 		textPredicadosMetodo = new JTextPane();
 		textPredicadosMetodo.setBounds(635, 338, 43, 22);
 		getContentPane().add(textPredicadosMetodo);
-		
+
 		JLabel lblLineasMetodo = new JLabel("Lineas");
 		lblLineasMetodo.setBounds(535, 286, 90, 23);
 		getContentPane().add(lblLineasMetodo);
-		
+
 		textLineasMetodo = new JTextPane();
 		textLineasMetodo.setBounds(635, 286, 43, 22);
 		getContentPane().add(textLineasMetodo);
-		
+
 		btnSeleccionarArchivo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				leerArchivo(e);
@@ -152,7 +148,7 @@ public class Ventana extends JFrame {
 				claseSeleccionada();
 			}
 		});
-		
+
 		comboBoxMetodo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -160,10 +156,10 @@ public class Ventana extends JFrame {
 			}
 		});
 	}
-	
+
 	private void claseSeleccionada() {
-		String claseElegida = (String)comboBoxClase.getSelectedItem();
-		
+		String claseElegida = (String) comboBoxClase.getSelectedItem();
+
 		comboBoxMetodo.removeAllItems();
 		Clase clase;
 		for (int i = 0; i < clases.size(); i++) {
@@ -171,18 +167,18 @@ public class Ventana extends JFrame {
 			if (claseElegida.equals(clase.getNombre())) {
 				metodos = clase.findMethods();
 				mostrarDatoClase(clase);
-				
+
 				if (metodos.size() == 0) {
 					mostrarDatoMetodo(null);
 				}
 				for (int j = 0; j < metodos.size(); j++) {
 					comboBoxMetodo.addItem(metodos.get(j).getNombre());
 					if (j == 0) {
-						mostrarDatoMetodo(metodos.get(j));						
+						mostrarDatoMetodo(metodos.get(j));
 					}
 				}
 			}
-			
+
 		}
 	}
 
@@ -190,10 +186,10 @@ public class Ventana extends JFrame {
 		textLineasComentadasClase.setText(String.valueOf(clase.lineasComentadas()));
 		textLineasClase.setText(String.valueOf(clase.getTexto().size()));
 	}
-	
+
 	private void metodoSeleccionado() {
-		String metodoElegida = (String)comboBoxMetodo.getSelectedItem();
-		if (metodoElegida != null) {					
+		String metodoElegida = (String) comboBoxMetodo.getSelectedItem();
+		if (metodoElegida != null) {
 			Metodo metodo;
 			for (int i = 0; i < metodos.size(); i++) {
 				metodo = metodos.get(i);
@@ -201,7 +197,7 @@ public class Ventana extends JFrame {
 					mostrarDatoMetodo(metodo);
 					break;
 				}
-			}			
+			}
 		}
 	}
 
@@ -214,15 +210,7 @@ public class Ventana extends JFrame {
 			return;
 		}
 		textCodigo.setEditorKit(new HTMLEditorKit());
-		String codigo = metodo.toString();
-		
-		codigo = codigo.replace("if(", "<font color=\"red\">if(</font>");
-
-		codigo = codigo.replace("if (", "<font color=\"red\">if (</font>");
-
-		codigo = codigo.replace("\n", "<br>");
-		codigo = codigo.replace("\t", "&nbsp;&nbsp;");
-		textCodigo.setText("<html><font color=\"#58FF33\">" + codigo + "</font></html>");	
+		textCodigo.setText(metodo.toHtml());
 		
 		textLineasComentadasMetodo.setText(String.valueOf(metodo.lineasComentadas()));
 		textPredicadosMetodo.setText(String.valueOf(metodo.predicados()));
@@ -238,17 +226,17 @@ public class Ventana extends JFrame {
 				GestorArchivo gestorArchivo = new GestorArchivo(ruta);
 				comboBoxClase.removeAllItems();
 				clases = gestorArchivo.findClass();
-				
+
 				mostrarDatoArchivo(gestorArchivo);
-				
+
 				for (int i = 0; i < clases.size(); i++) {
 					Clase clase = clases.get(i);
 					comboBoxClase.addItem(clase.getNombre());
 					if (i == 0) {
-						mostrarDatoClase(clase);						
+						mostrarDatoClase(clase);
 					}
 				}
-				
+
 			}
 		} else {
 			JOptionPane.showMessageDialog(null, "Debe seleccionar un archivo del tipo .java", "ERROR",
@@ -260,19 +248,7 @@ public class Ventana extends JFrame {
 		textLineasArchivo.setText(String.valueOf(gestorArchivo.getTexto().size()));
 		textLineasComentadasArchivo.setText(String.valueOf(gestorArchivo.lineasComentadas()));
 	}
-	
-	private void appendToPane(JTextPane tp, String msg, Color c)
-    {
-        StyleContext sc = StyleContext.getDefaultStyleContext();
-        AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
 
-        int len = tp.getText().length();
-        tp.setCaretPosition(len);
-        tp.setCharacterAttributes(aset, false);
-        tp.select(1, 5);
-        tp.replaceSelection(msg);
-    }
-	
 	public static void main(String[] args) {
 		Ventana principal = new Ventana();
 		principal.setVisible(true);
