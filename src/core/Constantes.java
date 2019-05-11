@@ -4,6 +4,7 @@ public class Constantes {
 
 	public static final String IF = "if(";
 	public static final String IF_CON_ESPACIO = "if (";
+	public static final String IF_FALSO = "if()"; // basuuura!!!
 	public static final String WHILE = "while(";
 	public static final String WHILE_CON_ESPACIO = "while (";
 	public static final String FOR = "for(";
