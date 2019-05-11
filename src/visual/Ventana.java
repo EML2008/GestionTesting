@@ -1,5 +1,6 @@
 package visual;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,11 +14,15 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyleContext;
+import javax.swing.text.html.HTMLEditorKit;
 
 import core.Clase;
 import core.GestorArchivo;
 import core.Metodo;
-import java.awt.Color;
 
 public class Ventana extends JFrame {
 
@@ -208,7 +213,17 @@ public class Ventana extends JFrame {
 			textLineasMetodo.setText(null);
 			return;
 		}
-		textCodigo.setText(metodo.toString());
+		textCodigo.setEditorKit(new HTMLEditorKit());
+		String codigo = metodo.toString();
+		
+		codigo = codigo.replace("if(", "<font color=\"red\">if(</font>");
+
+		codigo = codigo.replace("if (", "<font color=\"red\">if (</font>");
+
+		codigo = codigo.replace("\n", "<br>");
+		codigo = codigo.replace("\t", "&nbsp;&nbsp;");
+		textCodigo.setText("<html><font color=\"#58FF33\">" + codigo + "</font></html>");	
+		
 		textLineasComentadasMetodo.setText(String.valueOf(metodo.lineasComentadas()));
 		textPredicadosMetodo.setText(String.valueOf(metodo.predicados()));
 		textLineasMetodo.setText(String.valueOf(metodo.getTexto().size()));
@@ -245,6 +260,18 @@ public class Ventana extends JFrame {
 		textLineasArchivo.setText(String.valueOf(gestorArchivo.getTexto().size()));
 		textLineasComentadasArchivo.setText(String.valueOf(gestorArchivo.lineasComentadas()));
 	}
+	
+	private void appendToPane(JTextPane tp, String msg, Color c)
+    {
+        StyleContext sc = StyleContext.getDefaultStyleContext();
+        AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
+
+        int len = tp.getText().length();
+        tp.setCaretPosition(len);
+        tp.setCharacterAttributes(aset, false);
+        tp.select(1, 5);
+        tp.replaceSelection(msg);
+    }
 	
 	public static void main(String[] args) {
 		Ventana principal = new Ventana();
