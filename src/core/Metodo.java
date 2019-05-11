@@ -1,6 +1,5 @@
 package core;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 
 public class Metodo {
@@ -89,8 +88,8 @@ public class Metodo {
 	@Override
 	public String toString() {
 		String ret = "";
-		for (Iterator iterator = texto.iterator(); iterator.hasNext();) {
-			ret += (String) iterator.next() + "\n";
+		for (int i = 0; i < texto.size(); i++) {
+			ret += (i+1) + " " + texto.get(i) + "\n";
 			
 		}
 		return ret;
