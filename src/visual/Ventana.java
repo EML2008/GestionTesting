@@ -13,6 +13,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.text.html.HTMLEditorKit;
 
@@ -61,11 +62,13 @@ public class Ventana extends JFrame {
 		getContentPane().add(lblMetodos);
 
 		textCodigo = new JTextPane();
-		textCodigo.setForeground(Color.GREEN);
 		textCodigo.setBackground(Color.DARK_GRAY);
 		textCodigo.setEditable(false);
 		textCodigo.setBounds(10, 107, 499, 322);
-		getContentPane().add(textCodigo);
+		JScrollPane jsp = new JScrollPane(textCodigo);
+		jsp.setBounds(10, 107, 499, 322);
+		
+		getContentPane().add(jsp);
 
 		JLabel lblArchivo = new JLabel("Archivo");
 		lblArchivo.setBounds(555, 24, 46, 22);
