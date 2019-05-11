@@ -32,6 +32,7 @@ public class Ventana extends JFrame {
 	private JTextField textLineasComentadas;
 	private JTextField textPredicados;
 	private JTextArea textLineasComentadasTotales;
+	private JTextArea textLineasComentadasClase;
 	
 	public Ventana() {
 		getContentPane().setLayout(null);
@@ -73,6 +74,10 @@ public class Ventana extends JFrame {
 		textLineasComentadasTotales = new JTextArea();
 		textLineasComentadasTotales.setBounds(336, 74, 88, 22);
 		getContentPane().add(textLineasComentadasTotales);
+		
+		textLineasComentadasClase = new JTextArea();
+		textLineasComentadasClase.setBounds(375, 190, 4, 22);
+		getContentPane().add(textLineasComentadasClase);
 		btnSeleccionarArchivo.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -92,6 +97,7 @@ public class Ventana extends JFrame {
 					Clase clase = it.next();
 					if (claseElegida.equals(clase.getNombre())) {
 						metodos = clase.findMethods();
+						textLineasComentadasClase.setText(String.valueOf(clase.lineasComentadas()));
 						for (Metodo metodo : metodos) {
 							
 						}

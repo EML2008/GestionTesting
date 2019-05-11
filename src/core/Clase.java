@@ -10,6 +10,9 @@ public class Clase {
 	private static final String KEY_CLOSE = "}";
 	private static final String KEY_OPEN = "{";
 	
+	private static final String ASTERISCO = "*";
+	private static final String DOBLE_BARRA = "//";
+	
 	private String nombre = "";
 	private LinkedList<String> texto = new LinkedList<String>();
 
@@ -71,6 +74,24 @@ public class Clase {
 			}
 		}
 		return methods;
+	}
+	
+	/**
+	 * Cuenta las lineas comentadas
+	 * 
+	 * @return
+	 */
+	public int lineasComentadas() {
+		int lineasComentadas = 0;
+		for (int i = 0; i < texto.size(); i++) {
+			if (texto.get(i).indexOf(ASTERISCO) != -1) {
+				lineasComentadas++;
+			}
+			if (texto.get(i).indexOf(DOBLE_BARRA) != -1) {
+				lineasComentadas++;
+			}
+		}
+		return lineasComentadas;
 	}
 	
 	@Override
