@@ -93,6 +93,7 @@ public class Metodo {
 
 		}
 		ret = ret.replace(Constantes.IF, "<font color=\"red\">" + Constantes.IF + "</font>");
+		// OJO con el falso if()
 		ret = ret.replace("<font color=\"red\">" + Constantes.IF + "</font>)", "<font color=\"#58FF33\">" + Constantes.IF + "</font>)");
 		ret = ret.replace(Constantes.IF_CON_ESPACIO, "<font color=\"red\">" + Constantes.IF_CON_ESPACIO + "</font>");
 		ret = ret.replace(Constantes.FOR, "<font color=\"red\">" + Constantes.FOR + "</font>");
