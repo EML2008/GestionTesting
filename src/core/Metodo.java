@@ -4,7 +4,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 public class Metodo {
-
+	//TODO: El puma va a reemplazar todo por sin espacio y tiene que buscar donde se usa
+	//TODO: hacer un promedio de
 	private static final String IF = "if(";
 	private static final String IF_CON_ESPACIO = "if (";
 	private static final String WHILE = "while(";
