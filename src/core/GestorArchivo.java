@@ -35,6 +35,10 @@ public class GestorArchivo {
 
 	}
 
+	public List<String> getTexto() {
+		return texto;
+	}
+
 	/**
 	 * Buscar las clases en el archivo
 	 */

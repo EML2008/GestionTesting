@@ -33,6 +33,7 @@ public class Ventana extends JFrame {
 	private JTextField textPredicados;
 	private JTextArea textLineasComentadasTotales;
 	private JTextArea textLineasComentadasClase;
+	private JTextArea textLineasTotales;
 	
 	public Ventana() {
 		getContentPane().setLayout(null);
@@ -76,8 +77,12 @@ public class Ventana extends JFrame {
 		getContentPane().add(textLineasComentadasTotales);
 		
 		textLineasComentadasClase = new JTextArea();
-		textLineasComentadasClase.setBounds(375, 190, 4, 22);
+		textLineasComentadasClase.setBounds(336, 190, 88, 22);
 		getContentPane().add(textLineasComentadasClase);
+		
+		textLineasTotales = new JTextArea();
+		textLineasTotales.setBounds(338, 223, 43, 22);
+		getContentPane().add(textLineasTotales);
 		btnSeleccionarArchivo.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -144,6 +149,7 @@ public class Ventana extends JFrame {
 			if (ruta.contains(".java")) { // Corroborar
 				GestorArchivo gestorArchivo = new GestorArchivo(ruta);
 				clases = gestorArchivo.findClass();
+				textLineasTotales.setText(String.valueOf(gestorArchivo.getTexto().size()));
 				Iterator<Clase> it = clases.iterator();
 				while (it.hasNext()) {
 					comboBoxClase.addItem(it.next().getNombre());
