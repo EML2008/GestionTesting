@@ -44,34 +44,26 @@ public class GestorArchivo {
 	public List<Clase> findClass() {
 
 		classes = new ArrayList<Clase>();
-		String inicioClase;
 		String clase = null;
 		int llaves_abiertas = 0;
 		ArrayList<String> bufferClass = new ArrayList<String>();
 		boolean dentroClase = false;
 		for (int i = 0; i < texto.size(); i++) {
 			if (dentroClase == false && texto.get(i).lastIndexOf(CLASS) != -1) {
-				inicioClase = texto.get(i).substring(
-						texto.get(i).lastIndexOf(CLASS));
+				dentroClase = true;
+				
+				clase = texto.get(i).substring(texto.get(i).lastIndexOf(CLASS) + CLASS.length()).trim();
 
-				if (inicioClase.lastIndexOf(CLASS_KEY_OPEN) != -1 || (texto.size() >= i + 1 && texto.get(i + 1).lastIndexOf(KEY_OPEN) != -1)) {
-					
-					dentroClase = true;
-					if (inicioClase.lastIndexOf(CLASS_KEY_OPEN) != -1) {
-						// porque puede ser que cierre en el otro renglon
-						clase = inicioClase.substring(CLASS.length(), inicioClase.lastIndexOf(CLASS_KEY_OPEN));
-					}
+				if (clase.lastIndexOf(KEY_OPEN) != -1) {
+					clase = clase.substring(0, clase.lastIndexOf(KEY_OPEN)).trim();
+				}
 
-					if (inicioClase.lastIndexOf(CLASS_EXTENDS) != -1) {
-						clase = inicioClase.substring(CLASS.length(),
-								inicioClase.lastIndexOf(CLASS_EXTENDS));
-
-					} else {
-						if (inicioClase.lastIndexOf(CLASS_IMPLEMENTS) != -1) {
-							clase = inicioClase.substring(CLASS.length(),
-									inicioClase.lastIndexOf(CLASS_IMPLEMENTS));
-						}
-					}
+				if (clase.lastIndexOf(CLASS_IMPLEMENTS) != -1) {
+					clase = clase.substring(0, clase.lastIndexOf(CLASS_IMPLEMENTS)).trim();
+				}
+				
+				if (clase.lastIndexOf(CLASS_EXTENDS) != -1) {
+					clase = clase.substring(0, clase.lastIndexOf(CLASS_EXTENDS)).trim();
 				}
 
 			}
