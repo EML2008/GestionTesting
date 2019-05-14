@@ -216,7 +216,11 @@ public class Ventana extends JFrame {
 
 	private void claseSeleccionada() {
 		String claseElegida = (String) comboBoxClase.getSelectedItem();
-
+		
+		if (claseElegida == null) {
+			System.err.println("no hay clase seleccionada");
+			return;
+		}
 		comboBoxMetodo.removeAllItems();
 		Clase clase;
 		for (int i = 0; i < clases.size(); i++) {
@@ -305,6 +309,7 @@ public class Ventana extends JFrame {
 					Clase clase = clases.get(i);
 					comboBoxClase.addItem(clase.getNombre());
 					if (i == 0) {
+						comboBoxClase.setSelectedItem(clase);
 						mostrarDatoClase(clase);
 					}
 				}

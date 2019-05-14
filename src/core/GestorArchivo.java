@@ -43,6 +43,7 @@ public class GestorArchivo {
 	 */
 	public List<Clase> findClass() {
 
+		classes = new ArrayList<Clase>();
 		String inicioClase;
 		String clase = null;
 		int llaves_abiertas = 0;
