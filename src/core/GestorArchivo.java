@@ -2,14 +2,14 @@ package core;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class GestorArchivo {
 
-	List<String> texto = new LinkedList<String>();
-	private List<Clase> classes = new LinkedList<Clase>();
+	List<String> texto = new ArrayList<String>();
+	private List<Clase> classes = new ArrayList<Clase>();
 	private static final String CLASS = "class ";
 	private static final String CLASS_EXTENDS = " extends ";
 	private static final String CLASS_IMPLEMENTS = " implements ";
@@ -19,7 +19,6 @@ public class GestorArchivo {
 
 	private static final String ASTERISCO = "*";
 	private static final String DOBLE_BARRA = "//";
-
 
 	public GestorArchivo(String ruta) {
 		Scanner sc;
@@ -47,25 +46,27 @@ public class GestorArchivo {
 		String inicioClase;
 		String clase = null;
 		int llaves_abiertas = 0;
-		LinkedList<String> bufferClass = new LinkedList<String>();
+		ArrayList<String> bufferClass = new ArrayList<String>();
 		boolean dentro_clase = false;
 		for (int i = 0; i < texto.size(); i++) {
-			if (dentro_clase == false && texto.get(i).lastIndexOf(CLASS) > 0) {
+			if (dentro_clase == false && texto.get(i).lastIndexOf(CLASS) != -1) {
 				inicioClase = texto.get(i).substring(
 						texto.get(i).lastIndexOf(CLASS));
 
-				if (inicioClase.lastIndexOf(CLASS_KEY_OPEN) > 0) {
-					dentro_clase = true;
+				if (inicioClase.lastIndexOf(CLASS_KEY_OPEN) != -1 || (texto.size() >= i + 1 && texto.get(i + 1).lastIndexOf(KEY_OPEN) != -1)) {
 					
-					clase = inicioClase.substring(CLASS.length(),
-							inicioClase.lastIndexOf(CLASS_KEY_OPEN));
+					dentro_clase = true;
+					if (inicioClase.lastIndexOf(CLASS_KEY_OPEN) != -1) {
+						// porque puede ser que cierre en el otro renglon
+						clase = inicioClase.substring(CLASS.length(), inicioClase.lastIndexOf(CLASS_KEY_OPEN));
+					}
 
-					if (inicioClase.lastIndexOf(CLASS_EXTENDS) > 0) {
+					if (inicioClase.lastIndexOf(CLASS_EXTENDS) != -1) {
 						clase = inicioClase.substring(CLASS.length(),
 								inicioClase.lastIndexOf(CLASS_EXTENDS));
 
 					} else {
-						if (inicioClase.lastIndexOf(CLASS_IMPLEMENTS) > 0) {
+						if (inicioClase.lastIndexOf(CLASS_IMPLEMENTS) != -1) {
 							clase = inicioClase.substring(CLASS.length(),
 									inicioClase.lastIndexOf(CLASS_IMPLEMENTS));
 						}
@@ -84,19 +85,19 @@ public class GestorArchivo {
 					llaves_abiertas++;
 				}
 			}
-			
+
 			if (dentro_clase && texto.get(i).indexOf(KEY_CLOSE) >= 0) {
 				llaves_abiertas--;
 			}
 			if (dentro_clase && llaves_abiertas == 0) {
 				classes.add(new Clase(clase, bufferClass));
-				bufferClass = new LinkedList<String>();
+				bufferClass = new ArrayList<String>();
 				dentro_clase = false;
 			}
 		}
 		return this.classes;
 	}
-	
+
 	/**
 	 * Cuenta las lineas comentadas
 	 * 
@@ -118,5 +119,5 @@ public class GestorArchivo {
 	public List<Clase> getClasses() {
 		return classes;
 	}
-	
+
 }

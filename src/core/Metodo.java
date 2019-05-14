@@ -1,12 +1,12 @@
 package core;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class Metodo {
 	private String nombre = "";
-	private LinkedList<String> texto = new LinkedList<String>();
+	private ArrayList<String> texto = new ArrayList<String>();
 
-	public Metodo(String nombre, LinkedList<String> texto) {
+	public Metodo(String nombre, ArrayList<String> texto) {
 		super();
 		this.nombre = nombre;
 		this.texto = texto;
@@ -16,7 +16,7 @@ public class Metodo {
 		return nombre;
 	}
 
-	public LinkedList<String> getTexto() {
+	public ArrayList<String> getTexto() {
 		return texto;
 	}
 

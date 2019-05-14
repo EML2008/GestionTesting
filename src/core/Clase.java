@@ -1,14 +1,14 @@
 package core;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class Clase {
 	
 	
 	private String nombre = "";
-	private LinkedList<String> texto = new LinkedList<String>();
+	private ArrayList<String> texto = new ArrayList<String>();
 
-	public Clase(String nombre, LinkedList<String> texto) {
+	public Clase(String nombre, ArrayList<String> texto) {
 		super();
 		this.nombre = nombre;
 		this.texto = texto;
@@ -18,7 +18,7 @@ public class Clase {
 		return nombre;
 	}
 
-	public LinkedList<String> getTexto() {
+	public ArrayList<String> getTexto() {
 		return texto;
 	}
 
@@ -27,12 +27,12 @@ public class Clase {
 	 * 
 	 * @param dentro_metodo == false && clase
 	 */
-	public LinkedList<Metodo> findMethods() {
-		LinkedList<Metodo> methods = new LinkedList<Metodo>();
+	public ArrayList<Metodo> findMethods() {
+		ArrayList<Metodo> methods = new ArrayList<Metodo>();
 		String inicioMetodo;
 		String metodo = null;
 		int llaves_abiertas = 0;
-		LinkedList<String> bufferMethod = new LinkedList<String>();
+		ArrayList<String> bufferMethod = new ArrayList<String>();
 		boolean dentro_metodo = false;
 		
 		for (int i = 0; i < texto.size(); i++) {
@@ -61,7 +61,7 @@ public class Clase {
 			}
 			if (dentro_metodo && llaves_abiertas == 0) {
 				methods.add(new Metodo(metodo, bufferMethod));
-				bufferMethod = new LinkedList<String>();
+				bufferMethod = new ArrayList<String>();
 				dentro_metodo = false;
 			}
 		}

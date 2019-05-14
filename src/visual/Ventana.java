@@ -2,9 +2,10 @@ package visual;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -20,8 +21,6 @@ import javax.swing.text.html.HTMLEditorKit;
 import core.Clase;
 import core.GestorArchivo;
 import core.Metodo;
-import java.awt.Font;
-import javax.swing.JTextField;
 
 public class Ventana extends JFrame {
 
@@ -29,7 +28,7 @@ public class Ventana extends JFrame {
 	private static JComboBox<String> comboBoxClase;
 	private static JComboBox<String> comboBoxMetodo;
 	private List<Clase> clases;
-	private LinkedList<Metodo> metodos;
+	private ArrayList<Metodo> metodos;
 	private JTextPane textCodigo;
 	private JTextPane textLineasArchivo;
 	private JTextPane textLineasComentadasArchivo;
