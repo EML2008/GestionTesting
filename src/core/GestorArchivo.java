@@ -71,8 +71,6 @@ public class GestorArchivo {
 									inicioClase.lastIndexOf(CLASS_IMPLEMENTS));
 						}
 					}
-					bufferClass.add(texto.get(i));
-					continue;
 				}
 
 			}
@@ -91,7 +89,7 @@ public class GestorArchivo {
 			if (dentroClase && texto.get(i).indexOf(KEY_CLOSE) >= 0) {
 				llaves_abiertas--;
 			}
-			if (dentroClase && llaves_abiertas == 0) {
+			if (dentroClase && bufferClass.size() > 1 && llaves_abiertas == 0) {
 				classes.add(new Clase(clase, bufferClass));
 				bufferClass = new ArrayList<String>();
 				dentroClase = false;
