@@ -47,19 +47,30 @@ public class Metodo {
 	public int contarOperandos() {
 		int cantOperandos = 0;
 		boolean esPalabraClave;
+		boolean esPalabraOperador;
 		for (String linea : this.texto) {
 
-			String[] palabras = linea.split("[ \\(\\)\\[\\]\\{\\{\\.\\,]+");
+			String[] palabras = linea.replaceAll("\"[a-zA-Z0-9| |\\:|\\;]+\"", "")
+					.split("[ |\\(|\\)|\\[|\\]|\\{|\\}|\\,|\\.|\\;]+");
 
 			for (int i = 0; i < palabras.length; i++) {
 				esPalabraClave = false;
+				esPalabraOperador = false;
 				for (int j = 0; j < Constantes.PALABRAS_RESERVADAS.length; j++) {
-					if (palabras[i].equals(Constantes.PALABRAS_RESERVADAS[j])) {
+					if (palabras[i].trim().equals(Constantes.PALABRAS_RESERVADAS[j])) {
 						esPalabraClave = true;
 						break;
 					}
 				}
 				if (!esPalabraClave) {
+					for (int j = 0; j < Constantes.PALABRAS_OPERADORES.length; j++) {
+						if (palabras[i].trim().equals(Constantes.PALABRAS_OPERADORES[j])) {
+							esPalabraOperador = true;
+							break;
+						}
+					}
+				}
+				if (!esPalabraClave && !esPalabraOperador) {
 					cantOperandos++;
 					System.err.println(palabras[i]);
 				}
@@ -67,6 +78,10 @@ public class Metodo {
 		}
 		System.err.println("CANTIDAD DE OPERANDOS " + cantOperandos);
 		return cantOperandos;
+	}
+
+	public int contarOperadores() {
+		return 0;
 	}
 
 	private int contarPalabrasClave(int i, final String keyword) {

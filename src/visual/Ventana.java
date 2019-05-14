@@ -122,6 +122,7 @@ public class Ventana extends JFrame {
 		textLineasComentadasClase = new JTextPane();
 		textLineasComentadasClase.setEditable(false);
 		textLineasComentadasClase.setBounds(629, 163, 72, 22);
+		
 		getContentPane().add(textLineasComentadasClase);
 
 		JLabel lblMetodo = new JLabel("Metodo");
