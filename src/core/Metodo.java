@@ -3,10 +3,6 @@ package core;
 import java.util.LinkedList;
 
 public class Metodo {
-	// TODO: El puma va a reemplazar todo por sin espacio y tiene que buscar donde
-	// se usa
-	// TODO: hacer un promedio de
-
 	private String nombre = "";
 	private LinkedList<String> texto = new LinkedList<String>();
 
@@ -46,6 +42,31 @@ public class Metodo {
 			predicados += contarPalabrasClave(i, Constantes.TERNARIO);
 		}
 		return predicados;
+	}
+
+	public int contarOperandos() {
+		int cantOperandos = 0;
+		boolean esPalabraClave;
+		for (String linea : this.texto) {
+
+			String[] palabras = linea.split("[ \\(\\)\\[\\]\\{\\{\\.\\,]+");
+
+			for (int i = 0; i < palabras.length; i++) {
+				esPalabraClave = false;
+				for (int j = 0; j < Constantes.PALABRAS_RESERVADAS.length; j++) {
+					if (palabras[i].equals(Constantes.PALABRAS_RESERVADAS[j])) {
+						esPalabraClave = true;
+						break;
+					}
+				}
+				if (!esPalabraClave) {
+					cantOperandos++;
+					System.err.println(palabras[i]);
+				}
+			}
+		}
+		System.err.println("CANTIDAD DE OPERANDOS " + cantOperandos);
+		return cantOperandos;
 	}
 
 	private int contarPalabrasClave(int i, final String keyword) {
@@ -94,7 +115,8 @@ public class Metodo {
 		}
 		ret = ret.replace(Constantes.IF, "<font color=\"red\">" + Constantes.IF + "</font>");
 		// OJO con el falso if()
-		ret = ret.replace("<font color=\"red\">" + Constantes.IF + "</font>)", "<font color=\"#58FF33\">" + Constantes.IF + "</font>)");
+		ret = ret.replace("<font color=\"red\">" + Constantes.IF + "</font>)",
+				"<font color=\"#58FF33\">" + Constantes.IF + "</font>)");
 		ret = ret.replace(Constantes.IF_CON_ESPACIO, "<font color=\"red\">" + Constantes.IF_CON_ESPACIO + "</font>");
 		ret = ret.replace(Constantes.FOR, "<font color=\"red\">" + Constantes.FOR + "</font>");
 		ret = ret.replace(Constantes.FOR_CON_ESPACIO, "<font color=\"red\">" + Constantes.FOR_CON_ESPACIO + "</font>");

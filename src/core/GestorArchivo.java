@@ -26,7 +26,7 @@ public class GestorArchivo {
 		try {
 			sc = new Scanner(new File(ruta));
 			while (sc.hasNextLine()) {
-				this.texto.add(sc.nextLine().toLowerCase());
+				this.texto.add(sc.nextLine());
 			}
 			sc.close();
 		} catch (FileNotFoundException e) {
