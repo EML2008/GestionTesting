@@ -47,15 +47,15 @@ public class GestorArchivo {
 		String clase = null;
 		int llaves_abiertas = 0;
 		ArrayList<String> bufferClass = new ArrayList<String>();
-		boolean dentro_clase = false;
+		boolean dentroClase = false;
 		for (int i = 0; i < texto.size(); i++) {
-			if (dentro_clase == false && texto.get(i).lastIndexOf(CLASS) != -1) {
+			if (dentroClase == false && texto.get(i).lastIndexOf(CLASS) != -1) {
 				inicioClase = texto.get(i).substring(
 						texto.get(i).lastIndexOf(CLASS));
 
 				if (inicioClase.lastIndexOf(CLASS_KEY_OPEN) != -1 || (texto.size() >= i + 1 && texto.get(i + 1).lastIndexOf(KEY_OPEN) != -1)) {
 					
-					dentro_clase = true;
+					dentroClase = true;
 					if (inicioClase.lastIndexOf(CLASS_KEY_OPEN) != -1) {
 						// porque puede ser que cierre en el otro renglon
 						clase = inicioClase.substring(CLASS.length(), inicioClase.lastIndexOf(CLASS_KEY_OPEN));
@@ -71,28 +71,30 @@ public class GestorArchivo {
 									inicioClase.lastIndexOf(CLASS_IMPLEMENTS));
 						}
 					}
+					bufferClass.add(texto.get(i));
+					continue;
 				}
 
 			}
-			if (dentro_clase) {
+			if (dentroClase) {
 				bufferClass.add(texto.get(i));
 			}
-			// tener cuidado porque este archivo tiene {" Y ROMPE!!!!!
-			if (dentro_clase && texto.get(i).indexOf(CLASS_KEY_OPEN) >= 0) {
+			
+			if (dentroClase && texto.get(i).indexOf(CLASS_KEY_OPEN) >= 0 ) {
 				llaves_abiertas++;
 			} else {
-				if (dentro_clase && texto.get(i).indexOf(KEY_OPEN) >= 0) {
+				if (dentroClase && texto.get(i).indexOf(KEY_OPEN) >= 0) {
 					llaves_abiertas++;
 				}
 			}
 
-			if (dentro_clase && texto.get(i).indexOf(KEY_CLOSE) >= 0) {
+			if (dentroClase && texto.get(i).indexOf(KEY_CLOSE) >= 0) {
 				llaves_abiertas--;
 			}
-			if (dentro_clase && llaves_abiertas == 0) {
+			if (dentroClase && llaves_abiertas == 0) {
 				classes.add(new Clase(clase, bufferClass));
 				bufferClass = new ArrayList<String>();
-				dentro_clase = false;
+				dentroClase = false;
 			}
 		}
 		return this.classes;
