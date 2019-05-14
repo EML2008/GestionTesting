@@ -88,6 +88,10 @@ public class GestorArchivo {
 				dentroClase = false;
 			}
 		}
+		
+		if (bufferClass.size() > 0) {
+			System.err.println("Falta cerrar una llave");
+		}
 		return this.classes;
 	}
 
