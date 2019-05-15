@@ -121,7 +121,7 @@ public class Ventana extends JFrame {
 		textLineasComentadasClase = new JTextPane();
 		textLineasComentadasClase.setEditable(false);
 		textLineasComentadasClase.setBounds(629, 163, 72, 22);
-		
+
 		getContentPane().add(textLineasComentadasClase);
 
 		JLabel lblMetodo = new JLabel("Metodo");
@@ -216,7 +216,7 @@ public class Ventana extends JFrame {
 
 	private void claseSeleccionada() {
 		String claseElegida = (String) comboBoxClase.getSelectedItem();
-		
+
 		if (claseElegida == null) {
 			System.err.println("no hay clase seleccionada");
 			return;
@@ -245,7 +245,8 @@ public class Ventana extends JFrame {
 	}
 
 	private void mostrarDatoClase(Clase clase) {
-		textLineasComentadasClase.setText(String.valueOf(clase.lineasComentadas()));
+		textLineasComentadasClase.setText(String.valueOf(clase
+				.lineasComentadas()));
 		textLineasClase.setText(String.valueOf(clase.getTexto().size()));
 	}
 
@@ -270,10 +271,9 @@ public class Ventana extends JFrame {
 			this.volumenTextPane.setText(null);
 			this.operandosTextPane.setText(null);
 			this.operadoresTextPane.setText(null);
-		}
-		else
-		{
-			metodo.contarOperandos();
+		} else {
+			operandosTextPane.setText(String.valueOf(metodo.contarOperandos()));
+			operadoresTextPane.setText(String.valueOf(metodo.contarOperadores()));
 		}
 	}
 
@@ -288,7 +288,8 @@ public class Ventana extends JFrame {
 		textCodigo.setEditorKit(new HTMLEditorKit());
 		textCodigo.setText(metodo.toHtml());
 
-		textLineasComentadasMetodo.setText(String.valueOf(metodo.lineasComentadas()));
+		textLineasComentadasMetodo.setText(String.valueOf(metodo
+				.lineasComentadas()));
 		textPredicadosMetodo.setText(String.valueOf(metodo.predicados()));
 		textLineasMetodo.setText(String.valueOf(metodo.getTexto().size()));
 	}
@@ -315,15 +316,18 @@ public class Ventana extends JFrame {
 				}
 
 			} else {
-				JOptionPane.showMessageDialog(null, "Debe seleccionar un archivo del tipo .java", "ERROR",
+				JOptionPane.showMessageDialog(null,
+						"Debe seleccionar un archivo del tipo .java", "ERROR",
 						JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}
 
 	private void mostrarDatoArchivo(GestorArchivo gestorArchivo) {
-		textLineasArchivo.setText(String.valueOf(gestorArchivo.getTexto().size()));
-		textLineasComentadasArchivo.setText(String.valueOf(gestorArchivo.lineasComentadas()));
+		textLineasArchivo.setText(String.valueOf(gestorArchivo.getTexto()
+				.size()));
+		textLineasComentadasArchivo.setText(String.valueOf(gestorArchivo
+				.lineasComentadas()));
 	}
 
 	public static void main(String[] args) {

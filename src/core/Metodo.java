@@ -3,6 +3,10 @@ package core;
 import java.util.ArrayList;
 
 public class Metodo {
+	private static final String operadores[] = { "if", "else", "case",
+			"default", "for", "while", "catch", "throw", "+", "-", "*", "/",
+			"==", "!=", "=", "<=", ">=", "<", ">", "&&", "||", "and", "or",
+			"equal" };
 	private String nombre = "";
 	private ArrayList<String> texto = new ArrayList<String>();
 
@@ -21,8 +25,8 @@ public class Metodo {
 	}
 
 	/**
-	 * Pienso que contar la cantiada de if y dentro de cada if ver si tiene OR o AND
-	 * y hacer la cuenta.
+	 * Pienso que contar la cantiada de if y dentro de cada if ver si tiene OR o
+	 * AND y hacer la cuenta.
 	 * 
 	 * @return
 	 */
@@ -50,21 +54,23 @@ public class Metodo {
 		boolean esPalabraOperador;
 		for (String linea : this.texto) {
 
-			String[] palabras = linea.replaceAll("\"[a-zA-Z0-9| |\\:|\\;]+\"", "")
-					.split("[ |\\(|\\)|\\[|\\]|\\{|\\}|\\,|\\.|\\;]+");
+			String[] palabras = linea.replaceAll("\"[a-zA-Z0-9| |\\:|\\;]+\"",
+					"").split("[ |\\(|\\)|\\[|\\]|\\{|\\}|\\,|\\.|\\;]+");
 
 			for (int i = 0; i < palabras.length; i++) {
 				esPalabraClave = false;
 				esPalabraOperador = false;
 				for (int j = 0; j < Constantes.PALABRAS_RESERVADAS.length; j++) {
-					if (palabras[i].trim().equals(Constantes.PALABRAS_RESERVADAS[j])) {
+					if (palabras[i].trim().equals(
+							Constantes.PALABRAS_RESERVADAS[j])) {
 						esPalabraClave = true;
 						break;
 					}
 				}
 				if (!esPalabraClave) {
 					for (int j = 0; j < Constantes.PALABRAS_OPERADORES.length; j++) {
-						if (palabras[i].trim().equals(Constantes.PALABRAS_OPERADORES[j])) {
+						if (palabras[i].trim().equals(
+								Constantes.PALABRAS_OPERADORES[j])) {
 							esPalabraOperador = true;
 							break;
 						}
@@ -81,7 +87,13 @@ public class Metodo {
 	}
 
 	public int contarOperadores() {
-		return 0;
+		int operadores = 0;
+		for (int i = 0; i < Metodo.operadores.length; i++) {
+			if (texto.toString().contains(Metodo.operadores[i])) {
+				operadores++;
+			}
+		}
+		return operadores;
 	}
 
 	private int contarPalabrasClave(int i, final String keyword) {
@@ -128,19 +140,27 @@ public class Metodo {
 			ret += (i + 1) + " " + texto.get(i) + "\n";
 
 		}
-		ret = ret.replace(Constantes.IF, "<font color=\"red\">" + Constantes.IF + "</font>");
+		ret = ret.replace(Constantes.IF, "<font color=\"red\">" + Constantes.IF
+				+ "</font>");
 		// OJO con el falso if()
 		ret = ret.replace("<font color=\"red\">" + Constantes.IF + "</font>)",
 				"<font color=\"#58FF33\">" + Constantes.IF + "</font>)");
-		ret = ret.replace(Constantes.IF_CON_ESPACIO, "<font color=\"red\">" + Constantes.IF_CON_ESPACIO + "</font>");
-		ret = ret.replace(Constantes.FOR, "<font color=\"red\">" + Constantes.FOR + "</font>");
-		ret = ret.replace(Constantes.FOR_CON_ESPACIO, "<font color=\"red\">" + Constantes.FOR_CON_ESPACIO + "</font>");
-		ret = ret.replace(Constantes.WHILE, "<font color=\"red\">" + Constantes.WHILE + "</font>");
-		ret = ret.replace(Constantes.WHILE_CON_ESPACIO,
-				"<font color=\"red\">" + Constantes.WHILE_CON_ESPACIO + "</font>");
-		ret = ret.replace(Constantes.AND, "<font color=\"red\">" + Constantes.AND + "</font>");
-		ret = ret.replace(Constantes.OR, "<font color=\"red\">" + Constantes.OR + "</font>");
-		ret = ret.replace(Constantes.TERNARIO, "<font color=\"red\">" + Constantes.TERNARIO + "</font>");
+		ret = ret.replace(Constantes.IF_CON_ESPACIO, "<font color=\"red\">"
+				+ Constantes.IF_CON_ESPACIO + "</font>");
+		ret = ret.replace(Constantes.FOR, "<font color=\"red\">"
+				+ Constantes.FOR + "</font>");
+		ret = ret.replace(Constantes.FOR_CON_ESPACIO, "<font color=\"red\">"
+				+ Constantes.FOR_CON_ESPACIO + "</font>");
+		ret = ret.replace(Constantes.WHILE, "<font color=\"red\">"
+				+ Constantes.WHILE + "</font>");
+		ret = ret.replace(Constantes.WHILE_CON_ESPACIO, "<font color=\"red\">"
+				+ Constantes.WHILE_CON_ESPACIO + "</font>");
+		ret = ret.replace(Constantes.AND, "<font color=\"red\">"
+				+ Constantes.AND + "</font>");
+		ret = ret.replace(Constantes.OR, "<font color=\"red\">" + Constantes.OR
+				+ "</font>");
+		ret = ret.replace(Constantes.TERNARIO, "<font color=\"red\">"
+				+ Constantes.TERNARIO + "</font>");
 
 		ret = ret.replace("\n", "<br>");
 		ret = ret.replace("\t", "&nbsp;&nbsp;");
