@@ -272,8 +272,10 @@ public class Ventana extends JFrame {
 			this.operandosTextPane.setText(null);
 			this.operadoresTextPane.setText(null);
 		} else {
-			operandosTextPane.setText(String.valueOf(metodo.contarOperandos()));
-			operadoresTextPane.setText(String.valueOf(metodo.contarOperadores()));
+			this.operandosTextPane.setText(String.valueOf(metodo.contarOperandos()));
+			this.operadoresTextPane.setText(String.valueOf(metodo.contarOperadores()));
+			this.longitudTextPane.setText(String.format("%.2f", metodo.getLongitud()));
+			this.volumenTextPane.setText(String.format("%.2f", metodo.getVolumen()));
 		}
 	}
 

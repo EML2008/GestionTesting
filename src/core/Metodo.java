@@ -9,6 +9,8 @@ public class Metodo {
 			"equal" };
 	private String nombre = "";
 	private ArrayList<String> texto = new ArrayList<String>();
+	private int operandosEncontradores = 0;
+	private int operadoresEncontradores = 0;
 
 	public Metodo(String nombre, ArrayList<String> texto) {
 		super();
@@ -49,7 +51,7 @@ public class Metodo {
 	}
 
 	public int contarOperandos() {
-		int cantOperandos = 0;
+		this.operandosEncontradores = 0;
 		boolean esPalabraClave;
 		boolean esPalabraOperador;
 		for (String linea : this.texto) {
@@ -77,23 +79,22 @@ public class Metodo {
 					}
 				}
 				if (!esPalabraClave && !esPalabraOperador) {
-					cantOperandos++;
-					System.err.println(palabras[i]);
+					this.operandosEncontradores++;
 				}
 			}
 		}
-		System.err.println("CANTIDAD DE OPERANDOS " + cantOperandos);
-		return cantOperandos;
+		
+		return this.operandosEncontradores;
 	}
 
 	public int contarOperadores() {
-		int operadores = 0;
+		this.operadoresEncontradores = 0;
 		for (int i = 0; i < Metodo.operadores.length; i++) {
 			if (texto.toString().contains(Metodo.operadores[i])) {
-				operadores++;
+				this.operadoresEncontradores++;
 			}
 		}
-		return operadores;
+		return this.operadoresEncontradores;
 	}
 
 	private int contarPalabrasClave(int i, final String keyword) {
@@ -165,6 +166,18 @@ public class Metodo {
 		ret = ret.replace("\n", "<br>");
 		ret = ret.replace("\t", "&nbsp;&nbsp;");
 		return "<html><font color=\"#58FF33\">" + ret + "</font></html>";
+	}
+
+	public Double getLongitud() {
+
+		return (double) (this.operadoresEncontradores + this.operandosEncontradores);
+	}
+
+	public Double getVolumen() {
+
+		return this.getLongitud()
+				* (Math.log(this.operadoresEncontradores
+						+ Math.log(this.operadoresEncontradores)) / Math.log(2));
 	}
 
 }
