@@ -46,7 +46,7 @@ public class Ventana extends JFrame {
 
 	public Ventana() {
 		getContentPane().setLayout(null);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		JButton btnSeleccionarArchivo = new JButton("Seleccionar Archivo");
 		btnSeleccionarArchivo.setBounds(10, 11, 151, 23);
