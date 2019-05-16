@@ -45,9 +45,10 @@ public class Ventana extends JFrame {
 	private JTextPane operadoresTextPane;
 
 	public Ventana() {
+		setTitle("Herramienta de Gesti\u00F3n de Testing");
 		getContentPane().setLayout(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		
 		JButton btnSeleccionarArchivo = new JButton("Seleccionar Archivo");
 		btnSeleccionarArchivo.setBounds(10, 11, 151, 23);
 		getContentPane().add(btnSeleccionarArchivo);
