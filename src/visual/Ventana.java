@@ -22,6 +22,7 @@ import core.Clase;
 import core.GestorArchivo;
 import core.Metodo;
 
+
 public class Ventana extends JFrame {
 
 	private static final long serialVersionUID = -1838218182953168733L;
@@ -30,6 +31,7 @@ public class Ventana extends JFrame {
 	private List<Clase> clases;
 	private ArrayList<Metodo> metodos;
 	private JTextPane textCodigo;
+	private JTextPane textRuta;
 	private JTextPane textLineasArchivo;
 	private JTextPane textLineasComentadasArchivo;
 	private JTextPane textLineasClase;
@@ -175,6 +177,11 @@ public class Ventana extends JFrame {
 		operadoresTextPane.setEditable(false);
 		operadoresTextPane.setBounds(629, 438, 72, 20);
 		getContentPane().add(operadoresTextPane);
+		
+		textRuta = new JTextPane();
+		textRuta.setEditable(false);
+		textRuta.setBounds(171, 11, 338, 23);
+		getContentPane().add(textRuta);
 
 		JLabel lblLongitud = new JLabel("Longitud");
 		lblLongitud.setBounds(549, 342, 72, 23);
@@ -191,6 +198,7 @@ public class Ventana extends JFrame {
 		JLabel lblOperadores = new JLabel("Operadores");
 		lblOperadores.setBounds(549, 438, 72, 23);
 		getContentPane().add(lblOperadores);
+
 
 		btnSeleccionarArchivo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -305,7 +313,7 @@ public class Ventana extends JFrame {
 				GestorArchivo gestorArchivo = new GestorArchivo(ruta);
 				comboBoxClase.removeAllItems();
 				clases = gestorArchivo.findClass();
-
+				textRuta.setText(ruta);
 				mostrarDatoArchivo(gestorArchivo);
 
 				for (int i = 0; i < clases.size(); i++) {
