@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -43,6 +45,7 @@ public class Ventana extends JFrame {
 	private JTextPane volumenTextPane;
 	private JTextPane operandosTextPane;
 	private JTextPane operadoresTextPane;
+	private Metodo metodoElegido;
 
 	public Ventana() {
 		setTitle("Herramienta de Gesti\u00F3n de Testing");
@@ -76,7 +79,7 @@ public class Ventana extends JFrame {
 		textCodigo.setEditable(false);
 		textCodigo.setBounds(10, 107, 499, 322);
 		JScrollPane jsp = new JScrollPane(textCodigo);
-		jsp.setBounds(10, 107, 499, 322);
+		jsp.setBounds(10, 107, 514, 322);
 
 		getContentPane().add(jsp);
 
@@ -199,15 +202,33 @@ public class Ventana extends JFrame {
 		JLabel lblOperadores = new JLabel("Operadores");
 		lblOperadores.setBounds(549, 438, 72, 23);
 		getContentPane().add(lblOperadores);
-
+		
+		JButton btnOperandos = new JButton("Operandos");
+		btnOperandos.setBounds(336, 74, 89, 23);
+		getContentPane().add(btnOperandos);
+		
+		JButton btnOperadores = new JButton("Operadores");
+		btnOperadores.setBounds(435, 74, 89, 23);
+		getContentPane().add(btnOperadores);
 
 		btnSeleccionarArchivo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				leerArchivo(e);
 			}
-
+		});
+		
+		btnOperandos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cargarOperandos();
+			}
 		});
 
+		btnOperadores.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cargarOperandores();
+			}
+		});
+		
 		comboBoxClase.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -266,6 +287,7 @@ public class Ventana extends JFrame {
 			for (int i = 0; i < metodos.size(); i++) {
 				metodo = metodos.get(i);
 				if (metodoElegida.equals(metodo.getNombre())) {
+					this.metodoElegido = metodo;
 					mostrarDatoMetodoMcCabe(metodo);
 					mostrarDatoMetodoHelstead(metodo);
 					break;
@@ -340,7 +362,17 @@ public class Ventana extends JFrame {
 		textLineasComentadasArchivo.setText(String.valueOf(gestorArchivo
 				.lineasComentadas()));
 	}
+	
+	private void cargarOperandos() {
+		Operando operando = new Operando("Operandos", this.metodoElegido.getOperandos());
+		operando.setVisible(true);
+	}
 
+	private void cargarOperandores() {
+		Operando operando = new Operando("Operandores", this.metodoElegido.getOperadores());
+		operando.setVisible(true);
+	}
+	
 	public static void main(String[] args) {
 		Ventana principal = new Ventana();
 		principal.setVisible(true);

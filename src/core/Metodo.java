@@ -2,8 +2,8 @@ package core;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class Metodo {
 	private static final String operadores[] = { "if", "else", "case", "default", "for", "while", "catch", "throw", "+",
@@ -179,6 +179,14 @@ public class Metodo {
 
 		return this.getLongitud()
 				* (Math.log(this.operadoresEncontradosTotales + Math.log(this.operadoresEncontradosTotales)) / Math.log(2));
+	}
+	
+	public Set<String> getOperadores() {
+		return this.operandos.keySet();
+	}
+
+	public Set<String> getOperandos() {
+		return this.operandos.keySet();
 	}
 
 }
