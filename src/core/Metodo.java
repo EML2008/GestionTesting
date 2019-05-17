@@ -12,6 +12,8 @@ public class Metodo {
 	private ArrayList<String> texto = new ArrayList<String>();
 	private int operandosEncontradosTotales = 0;
 	private int operadoresEncontradosTotales = 0;
+	private int operandosEncontradosUnicos = 0;
+	private int operadoresEncontradosUnicos = 0;
 	private HashMap<String, Integer> operandos = new HashMap<String, Integer>();
 	private HashMap<String, Integer> operadores = new HashMap<String, Integer>();
 
@@ -94,7 +96,8 @@ public class Metodo {
 //		System.out.println("Claves: " + this.operandos.keySet().size());
 //		System.out.println("Claves: " + this.operandos.keySet());
 //		// System.out.println(this.operandos.values().size());
-//		System.out.println(this.operandosEncontradosTotales);
+		System.out.println(this.operandosEncontradosTotales);
+		this.operandosEncontradosUnicos = this.operandos.keySet().size();
 		return this.operandosEncontradosTotales;
 	}
 
@@ -126,9 +129,12 @@ public class Metodo {
 				}
 			}
 		}
+		
+		
 		System.out.println(operadoresEncontradosTotales);
-		System.out.println(this.operadores.keySet().size());
-		System.out.println("Claves" + this.operadores.keySet());
+//		System.out.println(this.operadores.keySet().size());
+//		System.out.println("Claves" + this.operadores.keySet());
+		this.operadoresEncontradosUnicos = this.operadores.keySet().size();
 		return this.operadoresEncontradosTotales;
 	}
 
@@ -203,7 +209,7 @@ public class Metodo {
 	public Double getVolumen() {
 
 		return this.getLongitud()
-				* (Math.log(this.operadoresEncontradosTotales + Math.log(this.operadoresEncontradosTotales))
+				* (Math.log(this.operandosEncontradosUnicos + this.operadoresEncontradosUnicos)
 						/ Math.log(2));
 	}
 
