@@ -6,16 +6,16 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class Metodo {
-	private static final String operadores[] = { "if", "else", "case", "default", "for", "while", "catch", "throw", "+",
-			"-", "*", "/", "==", "!=", "=", "<=", ">=", "<", ">", "&&", "||", "and", "or", "equal" };
+//	private static final String operadores[] = { "if", "else", "case", "default", "for", "while", "catch", "throw", "+",
+//			"-", "*", "/", "==", "!=", "=", "<=", ">=", "<", ">", "&&", "||", "and", "or", "equal" };
 	private String nombre = "";
 	private ArrayList<String> texto = new ArrayList<String>();
 	private int operandosEncontradosTotales = 0;
 	private int operadoresEncontradosTotales = 0;
-	private HashMap<String, Integer> operandos = new HashMap<String,Integer>();
+	private HashMap<String, Integer> operandos = new HashMap<String, Integer>();
+	private HashMap<String, Integer> operadores = new HashMap<String, Integer>();
 
 	public Metodo(String nombre, ArrayList<String> texto) {
-		super();
 		this.nombre = nombre;
 		this.texto = texto;
 	}
@@ -80,30 +80,53 @@ public class Metodo {
 						}
 					}
 				}
-				if (!esPalabraClave && !esPalabraOperador && !palabraActual.trim().equals("") && !palabraActual.trim().equals(this.nombre)) {
+				if (!esPalabraClave && !esPalabraOperador && !palabraActual.trim().equals("")
+						&& !palabraActual.trim().equals(this.nombre)) {
 					this.operandosEncontradosTotales++;
 					if (this.operandos.containsKey(palabraActual)) {
-						this.operandos.put(palabraActual, this.operandos.get(palabraActual)+ 1);
+						this.operandos.put(palabraActual, this.operandos.get(palabraActual) + 1);
 					} else {
 						this.operandos.put(palabraActual, Integer.valueOf(0));
 					}
 				}
 			}
 		}
-		System.out.println("Claves: " + this.operandos.keySet().size());
-		System.out.println("Claves: " + this.operandos.keySet());
-		//System.out.println(this.operandos.values().size());
-		System.out.println(this.operandosEncontradosTotales);
+//		System.out.println("Claves: " + this.operandos.keySet().size());
+//		System.out.println("Claves: " + this.operandos.keySet());
+//		// System.out.println(this.operandos.values().size());
+//		System.out.println(this.operandosEncontradosTotales);
 		return this.operandosEncontradosTotales;
 	}
 
 	public int contarOperadores() {
 		this.operadoresEncontradosTotales = 0;
-		for (int i = 0; i < Metodo.operadores.length; i++) {
-			if (texto.toString().contains(Metodo.operadores[i])) {
+		boolean esPalabraOperador = false;
+		String palabraActual = "";
+		for (String linea : this.texto) {
+
+			String[] palabras = linea.split("[ |\t|\\(|\\)|\\[|\\]|\\{|\\}|\\,|\\.|\\;]+");
+
+			for (int i = 0; i < palabras.length; i++) {
+				esPalabraOperador = false;
+				palabraActual = palabras[i];
+				for (int j = 0; j < Constantes.PALABRAS_OPERADORES.length; j++) {
+					if (palabraActual.trim().equals(Constantes.PALABRAS_OPERADORES[j])) {
+						esPalabraOperador = true;
+						break;
+					}
+				}
+			}
+			if (!esPalabraOperador && !palabraActual.trim().equals("") && !palabraActual.trim().equals(this.nombre)) {
 				this.operadoresEncontradosTotales++;
+				if (this.operadores.containsKey(palabraActual)) {
+					this.operadores.put(palabraActual, this.operadores.get(palabraActual) + 1);
+				} else {
+					this.operadores.put(palabraActual, Integer.valueOf(0));
+				}
 			}
 		}
+		System.out.println(operadoresEncontradosTotales);
+		System.out.println(this.operadores.keySet().size());
 		return this.operadoresEncontradosTotales;
 	}
 
@@ -178,7 +201,8 @@ public class Metodo {
 	public Double getVolumen() {
 
 		return this.getLongitud()
-				* (Math.log(this.operadoresEncontradosTotales + Math.log(this.operadoresEncontradosTotales)) / Math.log(2));
+				* (Math.log(this.operadoresEncontradosTotales + Math.log(this.operadoresEncontradosTotales))
+						/ Math.log(2));
 	}
 
 }
