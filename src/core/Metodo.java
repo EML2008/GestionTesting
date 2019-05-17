@@ -3,11 +3,8 @@ package core;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
-import java.util.TreeSet;
 
 public class Metodo {
-//	private static final String operadores[] = { "if", "else", "case", "default", "for", "while", "catch", "throw", "+",
-//			"-", "*", "/", "==", "!=", "=", "<=", ">=", "<", ">", "&&", "||", "and", "or", "equal" };
 	private String nombre = "";
 	private ArrayList<String> texto = new ArrayList<String>();
 	private int operandosEncontradosTotales = 0;
@@ -39,7 +36,6 @@ public class Metodo {
 	public int predicados() {
 		int predicados = 0;
 		for (int i = 0; i < texto.size(); i++) {
-			// TODO: alta complejidad hermano
 			predicados += contarPalabrasClave(i, Constantes.IF);
 			predicados += contarPalabrasClave(i, Constantes.IF_CON_ESPACIO);
 			predicados -= contarPalabrasClave(i, Constantes.IF_FALSO);
@@ -95,7 +91,7 @@ public class Metodo {
 		}
 //		System.out.println("Claves: " + this.operandos.keySet().size());
 //		System.out.println("Claves: " + this.operandos.keySet());
-//		// System.out.println(this.operandos.values().size());
+//		System.out.println(this.operandos.values().size());
 		System.out.println(this.operandosEncontradosTotales);
 		this.operandosEncontradosUnicos = this.operandos.keySet().size();
 		return this.operandosEncontradosTotales;
@@ -107,7 +103,7 @@ public class Metodo {
 		String palabraActual = "";
 		for (String linea : this.texto) {
 
-			String[] palabras = linea.split("[ |\t|\\(|\\)|\\[|\\]|\\{|\\}|\\,|\\.|\\;]+");
+			String[] palabras = linea.split("[ \t\\(\\)\\[\\]\\{\\}\\,\\.\\;]+");
 
 			for (int i = 0; i < palabras.length; i++) {
 				esPalabraOperador = false;
@@ -131,7 +127,7 @@ public class Metodo {
 		}
 		
 		
-		System.out.println(operadoresEncontradosTotales);
+//		System.out.println(operadoresEncontradosTotales);
 //		System.out.println(this.operadores.keySet().size());
 //		System.out.println("Claves" + this.operadores.keySet());
 		this.operadoresEncontradosUnicos = this.operadores.keySet().size();
@@ -214,7 +210,7 @@ public class Metodo {
 	}
 
 	public Set<String> getOperadores() {
-		return this.operandos.keySet();
+		return this.operadores.keySet();
 	}
 
 	public Set<String> getOperandos() {

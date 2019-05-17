@@ -267,8 +267,8 @@ public class Ventana extends JFrame {
 				for (int j = 0; j < metodos.size(); j++) {
 					comboBoxMetodo.addItem(metodos.get(j).getNombre());
 					if (j == 0) {
-						mostrarDatoMetodoMcCabe(metodos.get(j));
-						mostrarDatoMetodoHelstead(metodos.get(j));
+						//mostrarDatoMetodoMcCabe(metodos.get(j));
+						//mostrarDatoMetodoHelstead(metodos.get(j));
 					}
 				}
 			}
@@ -378,6 +378,6 @@ public class Ventana extends JFrame {
 	public static void main(String[] args) {
 		Ventana principal = new Ventana();
 		principal.setVisible(true);
-		principal.setSize(750, 550);
+		principal.setSize(800, 550);
 	}
 }
