@@ -57,11 +57,11 @@ public class Ventana extends JFrame {
 		getContentPane().add(btnSeleccionarArchivo);
 
 		comboBoxClase = new JComboBox<String>();
-		comboBoxClase.setBounds(10, 74, 151, 22);
+		comboBoxClase.setBounds(10, 74, 165, 22);
 		getContentPane().add(comboBoxClase);
 
 		comboBoxMetodo = new JComboBox<String>();
-		comboBoxMetodo.setBounds(175, 74, 151, 22);
+		comboBoxMetodo.setBounds(185, 74, 166, 22);
 		getContentPane().add(comboBoxMetodo);
 
 		JLabel lblClases = new JLabel("Clases");
@@ -79,107 +79,107 @@ public class Ventana extends JFrame {
 		textCodigo.setEditable(false);
 		textCodigo.setBounds(10, 107, 499, 322);
 		JScrollPane jsp = new JScrollPane(textCodigo);
-		jsp.setBounds(10, 107, 514, 322);
+		jsp.setBounds(10, 107, 568, 362);
 
 		getContentPane().add(jsp);
 
 		JLabel lblArchivo = new JLabel("Archivo");
 		lblArchivo.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblArchivo.setBounds(549, 11, 72, 22);
+		lblArchivo.setBounds(597, 11, 72, 22);
 		getContentPane().add(lblArchivo);
 
 		JLabel lblLineasArchivo = new JLabel("Lineas");
-		lblLineasArchivo.setBounds(549, 39, 90, 22);
+		lblLineasArchivo.setBounds(597, 39, 90, 22);
 		getContentPane().add(lblLineasArchivo);
 
 		textLineasArchivo = new JTextPane();
 		textLineasArchivo.setEditable(false);
-		textLineasArchivo.setBounds(629, 39, 72, 22);
+		textLineasArchivo.setBounds(677, 39, 50, 20);
 		getContentPane().add(textLineasArchivo);
 
 		JLabel lblLineasComentadasArchivo = new JLabel("Comentadas");
-		lblLineasComentadasArchivo.setBounds(549, 70, 107, 22);
+		lblLineasComentadasArchivo.setBounds(597, 70, 107, 22);
 		getContentPane().add(lblLineasComentadasArchivo);
 
 		textLineasComentadasArchivo = new JTextPane();
 		textLineasComentadasArchivo.setEditable(false);
-		textLineasComentadasArchivo.setBounds(629, 70, 72, 22);
+		textLineasComentadasArchivo.setBounds(677, 70, 50, 20);
 		getContentPane().add(textLineasComentadasArchivo);
 
 		JLabel lblClase = new JLabel("Clase");
 		lblClase.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblClase.setBounds(549, 107, 46, 22);
+		lblClase.setBounds(597, 107, 46, 22);
 		getContentPane().add(lblClase);
 
 		JLabel lblLineasClase = new JLabel("Lineas");
-		lblLineasClase.setBounds(549, 130, 84, 22);
+		lblLineasClase.setBounds(597, 130, 84, 22);
 		getContentPane().add(lblLineasClase);
 
 		textLineasClase = new JTextPane();
 		textLineasClase.setEditable(false);
-		textLineasClase.setBounds(629, 130, 72, 22);
+		textLineasClase.setBounds(677, 130, 50, 20);
 		getContentPane().add(textLineasClase);
 
 		JLabel lblLineasComentadasClase = new JLabel("Comentadas");
-		lblLineasComentadasClase.setBounds(549, 163, 90, 22);
+		lblLineasComentadasClase.setBounds(597, 163, 90, 22);
 		getContentPane().add(lblLineasComentadasClase);
 
 		textLineasComentadasClase = new JTextPane();
 		textLineasComentadasClase.setEditable(false);
-		textLineasComentadasClase.setBounds(629, 163, 72, 22);
+		textLineasComentadasClase.setBounds(677, 163, 50, 20);
 
 		getContentPane().add(textLineasComentadasClase);
 
 		JLabel lblMetodo = new JLabel("Metodo");
 		lblMetodo.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblMetodo.setBounds(549, 215, 72, 22);
+		lblMetodo.setBounds(597, 215, 72, 22);
 		getContentPane().add(lblMetodo);
 
 		JLabel lblLineasComentadasMetodo = new JLabel("Comentadas");
-		lblLineasComentadasMetodo.setBounds(549, 276, 90, 22);
+		lblLineasComentadasMetodo.setBounds(597, 276, 90, 22);
 		getContentPane().add(lblLineasComentadasMetodo);
 
 		textLineasComentadasMetodo = new JTextPane();
 		textLineasComentadasMetodo.setEditable(false);
-		textLineasComentadasMetodo.setBounds(629, 276, 72, 22);
+		textLineasComentadasMetodo.setBounds(677, 276, 50, 20);
 		getContentPane().add(textLineasComentadasMetodo);
 
 		JLabel lblCc = new JLabel("C.C.");
-		lblCc.setBounds(549, 309, 72, 22);
+		lblCc.setBounds(597, 309, 72, 22);
 		getContentPane().add(lblCc);
 
 		textPredicadosMetodo = new JTextPane();
 		textPredicadosMetodo.setEditable(false);
-		textPredicadosMetodo.setBounds(629, 312, 72, 22);
+		textPredicadosMetodo.setBounds(677, 312, 50, 20);
 		getContentPane().add(textPredicadosMetodo);
 
 		JLabel lblLineasMetodo = new JLabel("Lineas");
-		lblLineasMetodo.setBounds(549, 243, 72, 23);
+		lblLineasMetodo.setBounds(597, 243, 72, 23);
 		getContentPane().add(lblLineasMetodo);
 
 		textLineasMetodo = new JTextPane();
 		textLineasMetodo.setEditable(false);
-		textLineasMetodo.setBounds(629, 243, 72, 22);
+		textLineasMetodo.setBounds(677, 243, 50, 20);
 		getContentPane().add(textLineasMetodo);
 
 		longitudTextPane = new JTextPane();
 		longitudTextPane.setEditable(false);
-		longitudTextPane.setBounds(629, 345, 72, 20);
+		longitudTextPane.setBounds(677, 345, 50, 20);
 		getContentPane().add(longitudTextPane);
 
 		volumenTextPane = new JTextPane();
 		volumenTextPane.setEditable(false);
-		volumenTextPane.setBounds(629, 376, 72, 20);
+		volumenTextPane.setBounds(677, 376, 50, 20);
 		getContentPane().add(volumenTextPane);
 
 		operandosTextPane = new JTextPane();
 		operandosTextPane.setEditable(false);
-		operandosTextPane.setBounds(629, 407, 72, 20);
+		operandosTextPane.setBounds(677, 407, 50, 20);
 		getContentPane().add(operandosTextPane);
 
 		operadoresTextPane = new JTextPane();
 		operadoresTextPane.setEditable(false);
-		operadoresTextPane.setBounds(629, 438, 72, 20);
+		operadoresTextPane.setBounds(677, 438, 50, 20);
 		getContentPane().add(operadoresTextPane);
 		
 		textRuta = new JTextPane();
@@ -188,27 +188,27 @@ public class Ventana extends JFrame {
 		getContentPane().add(textRuta);
 
 		JLabel lblLongitud = new JLabel("Longitud");
-		lblLongitud.setBounds(549, 342, 72, 23);
+		lblLongitud.setBounds(597, 342, 72, 23);
 		getContentPane().add(lblLongitud);
 
 		JLabel lblVolumen = new JLabel("Volumen");
-		lblVolumen.setBounds(549, 376, 72, 23);
+		lblVolumen.setBounds(597, 376, 72, 23);
 		getContentPane().add(lblVolumen);
 
 		JLabel lblOperandos = new JLabel("Operandos");
-		lblOperandos.setBounds(549, 407, 72, 23);
+		lblOperandos.setBounds(597, 407, 72, 23);
 		getContentPane().add(lblOperandos);
 
 		JLabel lblOperadores = new JLabel("Operadores");
-		lblOperadores.setBounds(549, 438, 72, 23);
+		lblOperadores.setBounds(597, 438, 72, 23);
 		getContentPane().add(lblOperadores);
 		
 		JButton btnOperandos = new JButton("Operandos");
-		btnOperandos.setBounds(336, 74, 89, 23);
+		btnOperandos.setBounds(355, 74, 113, 23);
 		getContentPane().add(btnOperandos);
 		
 		JButton btnOperadores = new JButton("Operadores");
-		btnOperadores.setBounds(435, 74, 89, 23);
+		btnOperadores.setBounds(471, 74, 107, 23);
 		getContentPane().add(btnOperadores);
 
 		btnSeleccionarArchivo.addActionListener(new ActionListener() {
