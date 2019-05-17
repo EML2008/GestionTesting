@@ -115,18 +115,20 @@ public class Metodo {
 						break;
 					}
 				}
-			}
-			if (!esPalabraOperador && !palabraActual.trim().equals("") && !palabraActual.trim().equals(this.nombre)) {
-				this.operadoresEncontradosTotales++;
-				if (this.operadores.containsKey(palabraActual)) {
-					this.operadores.put(palabraActual, this.operadores.get(palabraActual) + 1);
-				} else {
-					this.operadores.put(palabraActual, Integer.valueOf(0));
+
+				if (esPalabraOperador) {
+					this.operadoresEncontradosTotales++;
+					if (this.operadores.containsKey(palabraActual)) {
+						this.operadores.put(palabraActual, this.operadores.get(palabraActual) + 1);
+					} else {
+						this.operadores.put(palabraActual, Integer.valueOf(0));
+					}
 				}
 			}
 		}
 		System.out.println(operadoresEncontradosTotales);
 		System.out.println(this.operadores.keySet().size());
+		System.out.println("Claves" + this.operadores.keySet());
 		return this.operadoresEncontradosTotales;
 	}
 
@@ -204,7 +206,7 @@ public class Metodo {
 				* (Math.log(this.operadoresEncontradosTotales + Math.log(this.operadoresEncontradosTotales))
 						/ Math.log(2));
 	}
-	
+
 	public Set<String> getOperadores() {
 		return this.operandos.keySet();
 	}
