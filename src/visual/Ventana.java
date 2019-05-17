@@ -80,7 +80,9 @@ public class Ventana extends JFrame {
 		textCodigo.setBounds(10, 107, 499, 322);
 		JScrollPane jsp = new JScrollPane(textCodigo);
 		jsp.setBounds(10, 107, 568, 362);
-
+		jsp.setVerticalScrollBarPolicy(
+                javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		
 		getContentPane().add(jsp);
 
 		JLabel lblArchivo = new JLabel("Archivo");
