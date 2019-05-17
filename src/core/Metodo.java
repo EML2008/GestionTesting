@@ -1,16 +1,18 @@
 package core;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class Metodo {
-	private static final String operadores[] = { "if", "else", "case",
-			"default", "for", "while", "catch", "throw", "+", "-", "*", "/",
-			"==", "!=", "=", "<=", ">=", "<", ">", "&&", "||", "and", "or",
-			"equal" };
+	private static final String operadores[] = { "if", "else", "case", "default", "for", "while", "catch", "throw", "+",
+			"-", "*", "/", "==", "!=", "=", "<=", ">=", "<", ">", "&&", "||", "and", "or", "equal" };
 	private String nombre = "";
 	private ArrayList<String> texto = new ArrayList<String>();
-	private int operandosEncontradores = 0;
-	private int operadoresEncontradores = 0;
+	private int operandosEncontradosTotales = 0;
+	private int operadoresEncontradosTotales = 0;
+	private HashMap<String, Integer> operandos = new HashMap<String,Integer>();
 
 	public Metodo(String nombre, ArrayList<String> texto) {
 		super();
@@ -27,8 +29,8 @@ public class Metodo {
 	}
 
 	/**
-	 * Pienso que contar la cantiada de if y dentro de cada if ver si tiene OR o
-	 * AND y hacer la cuenta.
+	 * Pienso que contar la cantiada de if y dentro de cada if ver si tiene OR o AND
+	 * y hacer la cuenta.
 	 * 
 	 * @return
 	 */
@@ -51,50 +53,58 @@ public class Metodo {
 	}
 
 	public int contarOperandos() {
-		this.operandosEncontradores = 0;
+		this.operandosEncontradosTotales = 0;
 		boolean esPalabraClave;
 		boolean esPalabraOperador;
+		String palabraActual;
 		for (String linea : this.texto) {
 
-			String[] palabras = linea.replaceAll("\"[a-zA-Z0-9| |\\:|\\;]+\"",
-					"").split("[ |\\(|\\)|\\[|\\]|\\{|\\}|\\,|\\.|\\;]+");
+			String[] palabras = linea.replaceAll("\"[a-zA-Z0-9| |\\:|\\;]+\"", "")
+					.split("[ |\t|\\(|\\)|\\[|\\]|\\{|\\}|\\,|\\.|\\;]+");
 
 			for (int i = 0; i < palabras.length; i++) {
 				esPalabraClave = false;
 				esPalabraOperador = false;
+				palabraActual = palabras[i];
 				for (int j = 0; j < Constantes.PALABRAS_RESERVADAS.length; j++) {
-					if (palabras[i].trim().equals(
-							Constantes.PALABRAS_RESERVADAS[j])) {
+					if (palabraActual.trim().equals(Constantes.PALABRAS_RESERVADAS[j])) {
 						esPalabraClave = true;
 						break;
 					}
 				}
 				if (!esPalabraClave) {
 					for (int j = 0; j < Constantes.PALABRAS_OPERADORES.length; j++) {
-						if (palabras[i].trim().equals(
-								Constantes.PALABRAS_OPERADORES[j])) {
+						if (palabraActual.trim().equals(Constantes.PALABRAS_OPERADORES[j])) {
 							esPalabraOperador = true;
 							break;
 						}
 					}
 				}
-				if (!esPalabraClave && !esPalabraOperador) {
-					this.operandosEncontradores++;
+				if (!esPalabraClave && !esPalabraOperador && !palabraActual.trim().equals("") && !palabraActual.trim().equals(this.nombre)) {
+					this.operandosEncontradosTotales++;
+					if (this.operandos.containsKey(palabraActual)) {
+						this.operandos.put(palabraActual, this.operandos.get(palabraActual)+ 1);
+					} else {
+						this.operandos.put(palabraActual, Integer.valueOf(0));
+					}
 				}
 			}
 		}
-		
-		return this.operandosEncontradores;
+		System.out.println("Claves: " + this.operandos.keySet().size());
+		System.out.println("Claves: " + this.operandos.keySet());
+		//System.out.println(this.operandos.values().size());
+		System.out.println(this.operandosEncontradosTotales);
+		return this.operandosEncontradosTotales;
 	}
 
 	public int contarOperadores() {
-		this.operadoresEncontradores = 0;
+		this.operadoresEncontradosTotales = 0;
 		for (int i = 0; i < Metodo.operadores.length; i++) {
 			if (texto.toString().contains(Metodo.operadores[i])) {
-				this.operadoresEncontradores++;
+				this.operadoresEncontradosTotales++;
 			}
 		}
-		return this.operadoresEncontradores;
+		return this.operadoresEncontradosTotales;
 	}
 
 	private int contarPalabrasClave(int i, final String keyword) {
@@ -141,27 +151,19 @@ public class Metodo {
 			ret += (i + 1) + " " + texto.get(i) + "\n";
 
 		}
-		ret = ret.replace(Constantes.IF, "<font color=\"red\">" + Constantes.IF
-				+ "</font>");
+		ret = ret.replace(Constantes.IF, "<font color=\"red\">" + Constantes.IF + "</font>");
 		// OJO con el falso if()
 		ret = ret.replace("<font color=\"red\">" + Constantes.IF + "</font>)",
 				"<font color=\"#58FF33\">" + Constantes.IF + "</font>)");
-		ret = ret.replace(Constantes.IF_CON_ESPACIO, "<font color=\"red\">"
-				+ Constantes.IF_CON_ESPACIO + "</font>");
-		ret = ret.replace(Constantes.FOR, "<font color=\"red\">"
-				+ Constantes.FOR + "</font>");
-		ret = ret.replace(Constantes.FOR_CON_ESPACIO, "<font color=\"red\">"
-				+ Constantes.FOR_CON_ESPACIO + "</font>");
-		ret = ret.replace(Constantes.WHILE, "<font color=\"red\">"
-				+ Constantes.WHILE + "</font>");
-		ret = ret.replace(Constantes.WHILE_CON_ESPACIO, "<font color=\"red\">"
-				+ Constantes.WHILE_CON_ESPACIO + "</font>");
-		ret = ret.replace(Constantes.AND, "<font color=\"red\">"
-				+ Constantes.AND + "</font>");
-		ret = ret.replace(Constantes.OR, "<font color=\"red\">" + Constantes.OR
-				+ "</font>");
-		ret = ret.replace(Constantes.TERNARIO, "<font color=\"red\">"
-				+ Constantes.TERNARIO + "</font>");
+		ret = ret.replace(Constantes.IF_CON_ESPACIO, "<font color=\"red\">" + Constantes.IF_CON_ESPACIO + "</font>");
+		ret = ret.replace(Constantes.FOR, "<font color=\"red\">" + Constantes.FOR + "</font>");
+		ret = ret.replace(Constantes.FOR_CON_ESPACIO, "<font color=\"red\">" + Constantes.FOR_CON_ESPACIO + "</font>");
+		ret = ret.replace(Constantes.WHILE, "<font color=\"red\">" + Constantes.WHILE + "</font>");
+		ret = ret.replace(Constantes.WHILE_CON_ESPACIO,
+				"<font color=\"red\">" + Constantes.WHILE_CON_ESPACIO + "</font>");
+		ret = ret.replace(Constantes.AND, "<font color=\"red\">" + Constantes.AND + "</font>");
+		ret = ret.replace(Constantes.OR, "<font color=\"red\">" + Constantes.OR + "</font>");
+		ret = ret.replace(Constantes.TERNARIO, "<font color=\"red\">" + Constantes.TERNARIO + "</font>");
 
 		ret = ret.replace("\n", "<br>");
 		ret = ret.replace("\t", "&nbsp;&nbsp;");
@@ -170,14 +172,13 @@ public class Metodo {
 
 	public Double getLongitud() {
 
-		return (double) (this.operadoresEncontradores + this.operandosEncontradores);
+		return (double) (this.operadoresEncontradosTotales + this.operandosEncontradosTotales);
 	}
 
 	public Double getVolumen() {
 
 		return this.getLongitud()
-				* (Math.log(this.operadoresEncontradores
-						+ Math.log(this.operadoresEncontradores)) / Math.log(2));
+				* (Math.log(this.operadoresEncontradosTotales + Math.log(this.operadoresEncontradosTotales)) / Math.log(2));
 	}
 
 }
