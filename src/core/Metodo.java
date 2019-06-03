@@ -13,6 +13,8 @@ public class Metodo {
 	private int operadoresEncontradosUnicos = 0;
 	private HashMap<String, Integer> operandos = new HashMap<String, Integer>();
 	private HashMap<String, Integer> operadores = new HashMap<String, Integer>();
+	private ArrayList<Metodo> otrosMetodosDeLaClase = new ArrayList<Metodo>();
+	private ArrayList<Clase> otrasClasesEnElArchivo = new ArrayList<Clase>();
 
 	public Metodo(String nombre, ArrayList<String> texto) {
 		this.nombre = nombre;
@@ -25,6 +27,11 @@ public class Metodo {
 
 	public ArrayList<String> getTexto() {
 		return texto;
+	}
+
+	
+	public void setOtrasClasesEnElArchivo(ArrayList<Clase> otrasClasesEnElArchivo) {
+		this.otrasClasesEnElArchivo = otrasClasesEnElArchivo;
 	}
 
 	/**
@@ -57,8 +64,8 @@ public class Metodo {
 		String palabraActual;
 		for (String linea : this.texto) {
 
-			String[] palabras = linea.replaceAll("\"[a-zA-Z0-9| |\\:|\\;]+\"", "")
-					.split("[ |\t|\\(|\\)|\\[|\\]|\\{|\\}|\\,|\\.|\\;]+");
+			String[] palabras = linea.replaceAll("\"[a-zA-Z0-9| |\\:|\\;]+\"", " ").replaceAll("[\\.]*[A-Za-z0-9]+\\("," ").replaceAll("[a-zA-Z0-9]+\\(\\)"," ")
+					.split("[ \t\\(\\)\\[\\]\\{\\}\\,\\.\\;\\+\\-\\=]+");
 
 			for (int i = 0; i < palabras.length; i++) {
 				esPalabraClave = false;
@@ -78,8 +85,17 @@ public class Metodo {
 						}
 					}
 				}
-				if (!esPalabraClave && !esPalabraOperador && !palabraActual.trim().equals("")
-						&& !palabraActual.trim().equals(this.nombre)) {
+				for (Metodo m : this.otrosMetodosDeLaClase) {
+					if (m.getNombre().equals(palabraActual))
+						esPalabraClave = true;
+				}
+				
+				for (Clase c : this.otrasClasesEnElArchivo) {
+					if (c.getNombre().equals(palabraActual))
+						esPalabraClave = true;
+				}
+
+				if (!esPalabraClave && !esPalabraOperador && !palabraActual.trim().equals("")) {
 					this.operandosEncontradosTotales++;
 					if (this.operandos.containsKey(palabraActual)) {
 						this.operandos.put(palabraActual, this.operandos.get(palabraActual) + 1);
@@ -125,8 +141,7 @@ public class Metodo {
 				}
 			}
 		}
-		
-		
+
 //		System.out.println(operadoresEncontradosTotales);
 //		System.out.println(this.operadores.keySet().size());
 //		System.out.println("Claves" + this.operadores.keySet());
@@ -205,8 +220,7 @@ public class Metodo {
 	public Double getVolumen() {
 
 		return this.getLongitud()
-				* (Math.log(this.operandosEncontradosUnicos + this.operadoresEncontradosUnicos)
-						/ Math.log(2));
+				* (Math.log(this.operandosEncontradosUnicos + this.operadoresEncontradosUnicos) / Math.log(2));
 	}
 
 	public Set<String> getOperadores() {
@@ -217,4 +231,7 @@ public class Metodo {
 		return this.operandos.keySet();
 	}
 
+	public void setOtrosMetodosDeLaClase(ArrayList<Metodo> otrosMetodosDeLaClase) {
+		this.otrosMetodosDeLaClase = otrosMetodosDeLaClase;
+	}
 }

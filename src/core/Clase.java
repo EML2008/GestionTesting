@@ -1,12 +1,13 @@
 package core;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Clase {
-	
-	
+
 	private String nombre = "";
 	private ArrayList<String> texto = new ArrayList<String>();
+	private ArrayList<Clase> otrasClasesEnElArchivo = new ArrayList<Clase>();
 
 	public Clase(String nombre, ArrayList<String> texto) {
 		super();
@@ -22,6 +23,10 @@ public class Clase {
 		return texto;
 	}
 
+	public void setOtrasClasesEnElArchivo(List<Clase> otrasClasesEnElArchivo) {
+		this.otrasClasesEnElArchivo = (ArrayList<Clase>) otrasClasesEnElArchivo;
+	}
+
 	/**
 	 * Busca los metodos de la clase
 	 * 
@@ -34,15 +39,14 @@ public class Clase {
 		int llaves_abiertas = 0;
 		ArrayList<String> bufferMethod = new ArrayList<String>();
 		boolean dentro_metodo = false;
-		
+
 		for (int i = 0; i < texto.size(); i++) {
 			if (dentro_metodo == false && texto.get(i).indexOf(Constantes.PARENTHESIS_KEY_OPEN) >= 0) {
-				inicioMetodo = texto.get(i).substring(0,
-						texto.get(i).indexOf(Constantes.PARENTHESIS_KEY_OPEN));
+				inicioMetodo = texto.get(i).substring(0, texto.get(i).indexOf(Constantes.PARENTHESIS_KEY_OPEN));
 
 				String reemplazo[] = inicioMetodo.split(" ");
 				for (int j = 0; j < reemplazo.length; j++) {
-					
+
 					if (reemplazo[j].matches("\\w+\\(.*")) {
 						dentro_metodo = true;
 						metodo = reemplazo[j].substring(0, reemplazo[j].indexOf("("));
@@ -55,7 +59,7 @@ public class Clase {
 			if (dentro_metodo && texto.get(i).indexOf(Constantes.KEY_OPEN) >= 0) {
 				llaves_abiertas++;
 			}
-			
+
 			if (dentro_metodo && texto.get(i).indexOf(Constantes.KEY_CLOSE) >= 0) {
 				llaves_abiertas--;
 			}
@@ -65,9 +69,13 @@ public class Clase {
 				dentro_metodo = false;
 			}
 		}
+		for (Metodo m : methods) {
+			m.setOtrosMetodosDeLaClase(methods);
+			m.setOtrasClasesEnElArchivo(this.otrasClasesEnElArchivo);
+		}
 		return methods;
 	}
-	
+
 	/**
 	 * Cuenta las lineas comentadas
 	 * 
@@ -85,7 +93,7 @@ public class Clase {
 		}
 		return lineasComentadas;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Clase [nombre=" + nombre + "]";

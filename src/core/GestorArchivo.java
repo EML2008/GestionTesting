@@ -51,7 +51,7 @@ public class GestorArchivo {
 		for (int i = 0; i < texto.size(); i++) {
 			if (dentroClase == false && texto.get(i).lastIndexOf(CLASS) != -1) {
 				dentroClase = true;
-				
+
 				clase = texto.get(i).substring(texto.get(i).lastIndexOf(CLASS) + CLASS.length()).trim();
 
 				if (clase.lastIndexOf(KEY_OPEN) != -1) {
@@ -61,7 +61,7 @@ public class GestorArchivo {
 				if (clase.lastIndexOf(CLASS_IMPLEMENTS) != -1) {
 					clase = clase.substring(0, clase.lastIndexOf(CLASS_IMPLEMENTS)).trim();
 				}
-				
+
 				if (clase.lastIndexOf(CLASS_EXTENDS) != -1) {
 					clase = clase.substring(0, clase.lastIndexOf(CLASS_EXTENDS)).trim();
 				}
@@ -70,8 +70,8 @@ public class GestorArchivo {
 			if (dentroClase) {
 				bufferClass.add(texto.get(i));
 			}
-			
-			if (dentroClase && texto.get(i).indexOf(CLASS_KEY_OPEN) >= 0 ) {
+
+			if (dentroClase && texto.get(i).indexOf(CLASS_KEY_OPEN) >= 0) {
 				llaves_abiertas++;
 			} else {
 				if (dentroClase && texto.get(i).indexOf(KEY_OPEN) >= 0) {
@@ -88,9 +88,12 @@ public class GestorArchivo {
 				dentroClase = false;
 			}
 		}
-		
+
 		if (bufferClass.size() > 0) {
 			System.err.println("Falta cerrar una llave");
+		}
+		for (Clase c : classes) {
+			c.setOtrasClasesEnElArchivo(classes);
 		}
 		return this.classes;
 	}

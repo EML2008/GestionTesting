@@ -7,8 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -23,7 +21,6 @@ import javax.swing.text.html.HTMLEditorKit;
 import core.Clase;
 import core.GestorArchivo;
 import core.Metodo;
-
 
 public class Ventana extends JFrame {
 
@@ -51,7 +48,7 @@ public class Ventana extends JFrame {
 		setTitle("Herramienta de Gesti\u00F3n de Testing");
 		getContentPane().setLayout(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		JButton btnSeleccionarArchivo = new JButton("Seleccionar Archivo");
 		btnSeleccionarArchivo.setBounds(10, 11, 151, 23);
 		getContentPane().add(btnSeleccionarArchivo);
@@ -80,9 +77,8 @@ public class Ventana extends JFrame {
 		textCodigo.setBounds(10, 107, 499, 322);
 		JScrollPane jsp = new JScrollPane(textCodigo);
 		jsp.setBounds(10, 107, 568, 362);
-		jsp.setVerticalScrollBarPolicy(
-                javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-		
+		jsp.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+
 		getContentPane().add(jsp);
 
 		JLabel lblArchivo = new JLabel("Archivo");
@@ -183,7 +179,7 @@ public class Ventana extends JFrame {
 		operadoresTextPane.setEditable(false);
 		operadoresTextPane.setBounds(677, 438, 50, 20);
 		getContentPane().add(operadoresTextPane);
-		
+
 		textRuta = new JTextPane();
 		textRuta.setEditable(false);
 		textRuta.setBounds(171, 11, 338, 23);
@@ -204,11 +200,11 @@ public class Ventana extends JFrame {
 		JLabel lblOperadores = new JLabel("Operadores");
 		lblOperadores.setBounds(597, 438, 72, 23);
 		getContentPane().add(lblOperadores);
-		
+
 		JButton btnOperandos = new JButton("Operandos");
 		btnOperandos.setBounds(355, 74, 113, 23);
 		getContentPane().add(btnOperandos);
-		
+
 		JButton btnOperadores = new JButton("Operadores");
 		btnOperadores.setBounds(471, 74, 107, 23);
 		getContentPane().add(btnOperadores);
@@ -218,7 +214,7 @@ public class Ventana extends JFrame {
 				leerArchivo(e);
 			}
 		});
-		
+
 		btnOperandos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cargarOperandos();
@@ -230,7 +226,7 @@ public class Ventana extends JFrame {
 				cargarOperandores();
 			}
 		});
-		
+
 		comboBoxClase.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -267,8 +263,8 @@ public class Ventana extends JFrame {
 				for (int j = 0; j < metodos.size(); j++) {
 					comboBoxMetodo.addItem(metodos.get(j).getNombre());
 					if (j == 0) {
-						//mostrarDatoMetodoMcCabe(metodos.get(j));
-						//mostrarDatoMetodoHelstead(metodos.get(j));
+						// mostrarDatoMetodoMcCabe(metodos.get(j));
+						// mostrarDatoMetodoHelstead(metodos.get(j));
 					}
 				}
 			}
@@ -277,8 +273,7 @@ public class Ventana extends JFrame {
 	}
 
 	private void mostrarDatoClase(Clase clase) {
-		textLineasComentadasClase.setText(String.valueOf(clase
-				.lineasComentadas()));
+		textLineasComentadasClase.setText(String.valueOf(clase.lineasComentadas()));
 		textLineasClase.setText(String.valueOf(clase.getTexto().size()));
 	}
 
@@ -323,8 +318,7 @@ public class Ventana extends JFrame {
 		textCodigo.setEditorKit(new HTMLEditorKit());
 		textCodigo.setText(metodo.toHtml());
 
-		textLineasComentadasMetodo.setText(String.valueOf(metodo
-				.lineasComentadas()));
+		textLineasComentadasMetodo.setText(String.valueOf(metodo.lineasComentadas()));
 		textPredicadosMetodo.setText(String.valueOf(metodo.predicados()));
 		textLineasMetodo.setText(String.valueOf(metodo.getTexto().size()));
 	}
@@ -351,30 +345,31 @@ public class Ventana extends JFrame {
 				}
 
 			} else {
-				JOptionPane.showMessageDialog(null,
-						"Debe seleccionar un archivo del tipo .java", "ERROR",
+				JOptionPane.showMessageDialog(null, "Debe seleccionar un archivo del tipo .java", "ERROR",
 						JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}
 
 	private void mostrarDatoArchivo(GestorArchivo gestorArchivo) {
-		textLineasArchivo.setText(String.valueOf(gestorArchivo.getTexto()
-				.size()));
-		textLineasComentadasArchivo.setText(String.valueOf(gestorArchivo
-				.lineasComentadas()));
+		textLineasArchivo.setText(String.valueOf(gestorArchivo.getTexto().size()));
+		textLineasComentadasArchivo.setText(String.valueOf(gestorArchivo.lineasComentadas()));
 	}
-	
+
 	private void cargarOperandos() {
-		Operando operando = new Operando("Operandos", this.metodoElegido.getOperandos());
-		operando.setVisible(true);
+		if (this.metodoElegido != null) {
+			Operando operando = new Operando("Operandos", this.metodoElegido.getOperandos());
+			operando.setVisible(true);
+		}
 	}
 
 	private void cargarOperandores() {
-		Operando operando = new Operando("Operandores", this.metodoElegido.getOperadores());
-		operando.setVisible(true);
+		if (this.metodoElegido != null) {
+			Operando operando = new Operando("Operandores", this.metodoElegido.getOperadores());
+			operando.setVisible(true);
+		}
 	}
-	
+
 	public static void main(String[] args) {
 		Ventana principal = new Ventana();
 		principal.setVisible(true);
