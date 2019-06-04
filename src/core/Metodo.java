@@ -29,7 +29,6 @@ public class Metodo {
 		return texto;
 	}
 
-	
 	public void setOtrasClasesEnElArchivo(ArrayList<Clase> otrasClasesEnElArchivo) {
 		this.otrasClasesEnElArchivo = otrasClasesEnElArchivo;
 	}
@@ -64,7 +63,8 @@ public class Metodo {
 		String palabraActual;
 		for (String linea : this.texto) {
 
-			String[] palabras = linea.replaceAll("\"[a-zA-Z0-9| |\\:|\\;]+\"", " ").replaceAll("[\\.]*[A-Za-z0-9]+\\("," ").replaceAll("[a-zA-Z0-9]+\\(\\)"," ")
+			String[] palabras = linea.replaceAll("\"[a-zA-Z0-9| |\\:|\\;]+\"", " ")
+					.replaceAll("[\\.]*[A-Za-z0-9]+\\(", " ").replaceAll("[a-zA-Z0-9]+\\(\\)", " ")
 					.split("[ \t\\(\\)\\[\\]\\{\\}\\,\\.\\;\\+\\-\\=]+");
 
 			for (int i = 0; i < palabras.length; i++) {
@@ -89,7 +89,7 @@ public class Metodo {
 					if (m.getNombre().equals(palabraActual))
 						esPalabraClave = true;
 				}
-				
+
 				for (Clase c : this.otrasClasesEnElArchivo) {
 					if (c.getNombre().equals(palabraActual))
 						esPalabraClave = true;
@@ -233,5 +233,26 @@ public class Metodo {
 
 	public void setOtrosMetodosDeLaClase(ArrayList<Metodo> otrosMetodosDeLaClase) {
 		this.otrosMetodosDeLaClase = otrosMetodosDeLaClase;
+	}
+
+	public int calcularFanIn() {
+		int fanIn = 0;
+		String palabraActual = "";
+		for (String linea : this.texto) {
+
+			String[] palabras = linea.split("[ \t\\(\\)\\[\\]\\{\\}\\,\\.\\;]+");
+
+			for (int i = 0; i < palabras.length; i++) {
+				palabraActual = palabras[i];
+				for (Metodo m : this.otrosMetodosDeLaClase) {
+					if (m.getNombre().equals(palabraActual) && !m.getNombre().equals(this.nombre)) {
+						fanIn++;
+						System.out.println(palabraActual);
+						break;
+					}
+				}
+			}
+		}
+		return fanIn;
 	}
 }
