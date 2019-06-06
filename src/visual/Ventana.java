@@ -21,6 +21,7 @@ import javax.swing.text.html.HTMLEditorKit;
 import core.Clase;
 import core.GestorArchivo;
 import core.Metodo;
+import javax.swing.ImageIcon;
 
 public class Ventana extends JFrame {
 
@@ -40,7 +41,14 @@ public class Ventana extends JFrame {
 	private JTextPane operadoresTextPane;
 	private JTextPane fanInTextPane;
 	private JTextPane fanOutTextPane;
+	private JTextPane porcComentadastextPane;
 	private Metodo metodoElegido;
+	private JButton reportCCbtn;
+	private JButton reportFanOutbtn;
+	private JButton reportFanInbtn;
+	private JButton reportOperadoresbtn;
+	private JButton reportOperandosbtn;
+	private JButton porcComentadasbtn;
 
 	public Ventana() {
 		setTitle("Herramienta de Gesti\u00F3n de Testing");
@@ -81,7 +89,7 @@ public class Ventana extends JFrame {
 
 		JLabel lblMetodo = new JLabel("Metodo");
 		lblMetodo.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblMetodo.setBounds(617, 73, 72, 22);
+		lblMetodo.setBounds(633, 73, 72, 22);
 		getContentPane().add(lblMetodo);
 
 		JLabel lblLineasComentadasMetodo = new JLabel("Comentadas");
@@ -94,12 +102,12 @@ public class Ventana extends JFrame {
 		getContentPane().add(textLineasComentadasMetodo);
 
 		JLabel lblCc = new JLabel("C.C.");
-		lblCc.setBounds(588, 173, 72, 22);
+		lblCc.setBounds(588, 198, 72, 22);
 		getContentPane().add(lblCc);
 
 		textPredicadosMetodo = new JTextPane();
 		textPredicadosMetodo.setEditable(false);
-		textPredicadosMetodo.setBounds(668, 176, 50, 20);
+		textPredicadosMetodo.setBounds(668, 198, 50, 20);
 		getContentPane().add(textPredicadosMetodo);
 
 		JLabel lblLineasMetodo = new JLabel("Lineas");
@@ -113,22 +121,22 @@ public class Ventana extends JFrame {
 
 		longitudTextPane = new JTextPane();
 		longitudTextPane.setEditable(false);
-		longitudTextPane.setBounds(668, 209, 50, 20);
+		longitudTextPane.setBounds(668, 231, 50, 20);
 		getContentPane().add(longitudTextPane);
 
 		volumenTextPane = new JTextPane();
 		volumenTextPane.setEditable(false);
-		volumenTextPane.setBounds(668, 240, 50, 20);
+		volumenTextPane.setBounds(668, 262, 50, 20);
 		getContentPane().add(volumenTextPane);
 
 		operandosTextPane = new JTextPane();
 		operandosTextPane.setEditable(false);
-		operandosTextPane.setBounds(668, 271, 50, 20);
+		operandosTextPane.setBounds(668, 293, 50, 20);
 		getContentPane().add(operandosTextPane);
 
 		operadoresTextPane = new JTextPane();
 		operadoresTextPane.setEditable(false);
-		operadoresTextPane.setBounds(668, 302, 50, 20);
+		operadoresTextPane.setBounds(668, 324, 50, 20);
 		getContentPane().add(operadoresTextPane);
 
 		textRuta = new JTextPane();
@@ -137,19 +145,19 @@ public class Ventana extends JFrame {
 		getContentPane().add(textRuta);
 
 		JLabel lblLongitud = new JLabel("Longitud");
-		lblLongitud.setBounds(588, 206, 72, 23);
+		lblLongitud.setBounds(588, 228, 72, 23);
 		getContentPane().add(lblLongitud);
 
 		JLabel lblVolumen = new JLabel("Volumen");
-		lblVolumen.setBounds(588, 240, 72, 23);
+		lblVolumen.setBounds(588, 262, 72, 23);
 		getContentPane().add(lblVolumen);
 
 		JLabel lblOperandos = new JLabel("Operandos");
-		lblOperandos.setBounds(588, 271, 72, 23);
+		lblOperandos.setBounds(588, 293, 72, 23);
 		getContentPane().add(lblOperandos);
 
 		JLabel lblOperadores = new JLabel("Operadores");
-		lblOperadores.setBounds(588, 302, 72, 23);
+		lblOperadores.setBounds(588, 324, 72, 23);
 		getContentPane().add(lblOperadores);
 
 		JButton btnOperandos = new JButton("Operandos");
@@ -161,22 +169,143 @@ public class Ventana extends JFrame {
 		getContentPane().add(btnOperadores);
 
 		JLabel labelFanIn = new JLabel("FAN IN");
-		labelFanIn.setBounds(588, 333, 72, 23);
+		labelFanIn.setBounds(588, 355, 72, 23);
 		getContentPane().add(labelFanIn);
 
 		fanInTextPane = new JTextPane();
 		fanInTextPane.setEditable(false);
-		fanInTextPane.setBounds(668, 333, 50, 20);
+		fanInTextPane.setBounds(668, 355, 50, 20);
 		getContentPane().add(fanInTextPane);
 
 		JLabel lblFanOut = new JLabel("FAN OUT");
-		lblFanOut.setBounds(588, 364, 72, 23);
+		lblFanOut.setBounds(588, 386, 72, 23);
 		getContentPane().add(lblFanOut);
 
 		fanOutTextPane = new JTextPane();
 		fanOutTextPane.setEditable(false);
-		fanOutTextPane.setBounds(668, 364, 50, 20);
+		fanOutTextPane.setBounds(668, 386, 50, 20);
 		getContentPane().add(fanOutTextPane);
+
+		reportCCbtn = new JButton("");
+		reportCCbtn.setEnabled(false);
+		reportCCbtn.setIcon(new ImageIcon(
+				"C:\\Users\\Emiliano Lancuba\\UNLaM\\Analisis de Software\\Entregas\\GestionTesting\\icon\\iconExclamation.png"));
+		reportCCbtn.setBounds(727, 198, 26, 22);
+		getContentPane().add(reportCCbtn);
+
+		reportCCbtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int valorCCActual = Integer.valueOf(textPredicadosMetodo.getText());
+				String reporte = "";
+				if (valorCCActual > 10) {
+					reporte = "Se debe modularizar el metodo debido a que es recomendable que la complejidad ciclomatica sea menor a 10.";
+				} else
+					reporte = "La complejidad ciclomatica es aceptable (Menor a 10).";
+				JOptionPane.showMessageDialog(null, reporte, "INFORMACION", JOptionPane.INFORMATION_MESSAGE);
+			}
+
+		});
+
+		reportFanInbtn = new JButton("");
+		reportFanInbtn.setIcon(new ImageIcon(
+				"C:\\Users\\Emiliano Lancuba\\UNLaM\\Analisis de Software\\Entregas\\GestionTesting\\icon\\iconExclamation.png"));
+		reportFanInbtn.setEnabled(false);
+		reportFanInbtn.setBounds(728, 355, 26, 22);
+		getContentPane().add(reportFanInbtn);
+		reportFanInbtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int valorFanInActual = Integer.valueOf(fanInTextPane.getText());
+				String reporte = "";
+				if (valorFanInActual > 5) {
+					reporte = "Ya que se posee un FAN IN alto (Mayor que 5) es recomendable testear el metodo exhaustivamente (Por ejemplo con el metodo de Mc Cabe).";
+				} else
+					reporte = "Ya que se posee un FAN IN bajo, no es necesario testear el metodo exhaustivamente (Por ejemplo con el metodo de Sentencias).";
+				JOptionPane.showMessageDialog(null, reporte, "INFORMACION", JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
+
+		reportFanOutbtn = new JButton("");
+		reportFanOutbtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int valorFanOutActual = Integer.valueOf(fanInTextPane.getText());
+				String reporte = "";
+				if (valorFanOutActual > 2) {
+					reporte = "El metodo es utilizado en mas de 5 metodos, testee este metodo exhaustivamente (Por ejemplo con el metodo de Mc Cabe).";
+				} else
+					reporte = "El metodo es utilizado en " + valorFanOutActual
+							+ " metodos, no es necesario testearlo exhaustivamente (Por ejemplo con el metodo de Sentencias).";
+				JOptionPane.showMessageDialog(null, reporte, "INFORMACION", JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
+		reportFanOutbtn.setIcon(new ImageIcon(
+				"C:\\Users\\Emiliano Lancuba\\UNLaM\\Analisis de Software\\Entregas\\GestionTesting\\icon\\iconExclamation.png"));
+		reportFanOutbtn.setEnabled(false);
+		reportFanOutbtn.setBounds(728, 386, 26, 22);
+		getContentPane().add(reportFanOutbtn);
+
+		reportOperadoresbtn = new JButton("");
+		reportOperadoresbtn.setIcon(new ImageIcon(
+				"C:\\Users\\Emiliano Lancuba\\UNLaM\\Analisis de Software\\Entregas\\GestionTesting\\icon\\iconExclamation.png"));
+		reportOperadoresbtn.setEnabled(false);
+		reportOperadoresbtn.setBounds(727, 322, 26, 22);
+		getContentPane().add(reportOperadoresbtn);
+		reportOperadoresbtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int valorOperadoresActual = Integer.valueOf(operadoresTextPane.getText());
+				String reporte = "";
+				if (valorOperadoresActual > 15) {
+					reporte = "El metodo posee mas de 15 operadores, se recomienda testear exhaustivamente (Por ejemplo con Mc Cabe).";
+				} else
+					reporte = "La cantidad de operadores es aceptable (Menor a 15).";
+				JOptionPane.showMessageDialog(null, reporte, "INFORMACION", JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
+
+		reportOperandosbtn = new JButton("");
+		reportOperandosbtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int valorOperandosActual = Integer.valueOf(operandosTextPane.getText());
+				String reporte = "";
+				if (valorOperandosActual > 15) {
+					reporte = "El metodo posee mas de 15 operandos, recuerde que la cantidad de operandos aumenta la complejidad del metodo.";
+				} else
+					reporte = "La cantidad de operandos es aceptable (Menor a 15 operandos).";
+				JOptionPane.showMessageDialog(null, reporte, "INFORMACION", JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
+		reportOperandosbtn.setIcon(new ImageIcon(
+				"C:\\Users\\Emiliano Lancuba\\UNLaM\\Analisis de Software\\Entregas\\GestionTesting\\icon\\iconExclamation.png"));
+		reportOperandosbtn.setEnabled(false);
+		reportOperandosbtn.setBounds(728, 293, 26, 22);
+		getContentPane().add(reportOperandosbtn);
+
+		JLabel lblcomentadas = new JLabel("% Comentarios");
+		lblcomentadas.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblcomentadas.setBounds(588, 171, 107, 22);
+		getContentPane().add(lblcomentadas);
+
+		porcComentadastextPane = new JTextPane();
+		porcComentadastextPane.setEditable(false);
+		porcComentadastextPane.setBounds(668, 171, 50, 20);
+		getContentPane().add(porcComentadastextPane);
+
+		porcComentadasbtn = new JButton("");
+		porcComentadasbtn.setIcon(new ImageIcon(
+				"C:\\Users\\Emiliano Lancuba\\UNLaM\\Analisis de Software\\Entregas\\GestionTesting\\icon\\iconExclamation.png"));
+		porcComentadasbtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				float valorComentariosActual = Float.valueOf(porcComentadastextPane.getText().replace("%", ""));
+				String reporte = "";
+				if (valorComentariosActual < 30.00) {
+					reporte = "Es recomendable tener comentado al menos el 30% del codigo.";
+				} else
+					reporte = "El porcentaje de comentarios es aceptable (Mayor al 30%).";
+				JOptionPane.showMessageDialog(null, reporte, "INFORMACION", JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
+		porcComentadasbtn.setEnabled(false);
+		porcComentadasbtn.setBounds(727, 171, 26, 22);
+		getContentPane().add(porcComentadasbtn);
 
 		btnSeleccionarArchivo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -224,26 +353,15 @@ public class Ventana extends JFrame {
 			clase = clases.get(i);
 			if (claseElegida.equals(clase.getNombre())) {
 				metodos = clase.findMethods();
-				// mostrarDatoClase(clase);
-
 				if (metodos.size() == 0) {
 					mostrarDatoMetodoMcCabe(null);
 				}
 				for (int j = 0; j < metodos.size(); j++) {
 					comboBoxMetodo.addItem(metodos.get(j).getNombre());
-					if (j == 0) {
-						// mostrarDatoMetodoMcCabe(metodos.get(j));
-						// mostrarDatoMetodoHelstead(metodos.get(j));
-					}
 				}
 			}
 
 		}
-	}
-
-	private void mostrarDatoClase(Clase clase) {
-		// textLineasComentadasClase.setText(String.valueOf(clase.lineasComentadas()));
-		// textLineasClase.setText(String.valueOf(clase.getTexto().size()));
 	}
 
 	private void metodoSeleccionado() {
@@ -257,10 +375,20 @@ public class Ventana extends JFrame {
 					mostrarDatoMetodoMcCabe(metodo);
 					mostrarDatoMetodoHelstead(metodo);
 					mostrarFanInOut(metodo);
+					habilitarResultados();
 					break;
 				}
 			}
 		}
+	}
+
+	private void habilitarResultados() {
+		this.reportCCbtn.setEnabled(true);
+		this.porcComentadasbtn.setEnabled(true);
+		this.reportFanInbtn.setEnabled(true);
+		this.reportFanOutbtn.setEnabled(true);
+		this.reportOperadoresbtn.setEnabled(true);
+		this.reportOperandosbtn.setEnabled(true);
 	}
 
 	private void mostrarFanInOut(Metodo metodo) {
@@ -269,8 +397,8 @@ public class Ventana extends JFrame {
 			this.fanOutTextPane.setText(null);
 		} else {
 			this.fanInTextPane.setText(String.valueOf(metodo.calcularFanIn()));
+			this.fanOutTextPane.setText(String.valueOf(this.calculaFanOut(metodo)));
 		}
-
 	}
 
 	private void mostrarDatoMetodoHelstead(Metodo metodo) {
@@ -296,11 +424,15 @@ public class Ventana extends JFrame {
 			return;
 		}
 		textCodigo.setEditorKit(new HTMLEditorKit());
-		textCodigo.setText(metodo.toHtml());
-
-		textLineasComentadasMetodo.setText(String.valueOf(metodo.lineasComentadas()));
-		textPredicadosMetodo.setText(String.valueOf(metodo.predicados()));
+		String codigoFormateado = metodo.toHtml();
+		textCodigo.setText(codigoFormateado);
+		float porcentajeDeLineasComentadas = (float) ((float) metodo.lineasComentadas()
+				/ (float) (metodo.getTexto().size())) * 100;
+		System.out.println(porcentajeDeLineasComentadas);
 		textLineasMetodo.setText(String.valueOf(metodo.getTexto().size()));
+		textLineasComentadasMetodo.setText(String.valueOf(metodo.lineasComentadas()));
+		porcComentadastextPane.setText(String.format("%.2f", porcentajeDeLineasComentadas).concat("%"));
+		textPredicadosMetodo.setText(String.valueOf(metodo.predicados()));
 	}
 
 	public void leerArchivo(ActionEvent e) {
@@ -313,14 +445,12 @@ public class Ventana extends JFrame {
 				comboBoxClase.removeAllItems();
 				clases = gestorArchivo.findClass();
 				textRuta.setText(ruta);
-				// mostrarDatoArchivo(gestorArchivo);
 
 				for (int i = 0; i < clases.size(); i++) {
 					Clase clase = clases.get(i);
 					comboBoxClase.addItem(clase.getNombre());
 					if (i == 0) {
 						comboBoxClase.setSelectedItem(clase);
-						mostrarDatoClase(clase);
 					}
 				}
 
@@ -329,11 +459,6 @@ public class Ventana extends JFrame {
 						JOptionPane.ERROR_MESSAGE);
 			}
 		}
-	}
-
-	private void mostrarDatoArchivo(GestorArchivo gestorArchivo) {
-		// textLineasArchivo.setText(String.valueOf(gestorArchivo.getTexto().size()));
-		// textLineasComentadasArchivo.setText(String.valueOf(gestorArchivo.lineasComentadas()));
 	}
 
 	private void cargarOperandos() {
@@ -353,6 +478,14 @@ public class Ventana extends JFrame {
 	public static void main(String[] args) {
 		Ventana principal = new Ventana();
 		principal.setVisible(true);
-		principal.setSize(750, 550);
+		principal.setSize(780, 550);
+	}
+
+	public int calculaFanOut(Metodo m) {
+		int fanOut = -1;
+		for (Metodo metodoActual : this.metodos) {
+			fanOut += metodoActual.calcularCantidadDeVecesQueSeUsaUnMetodo(m);
+		}
+		return fanOut;
 	}
 }

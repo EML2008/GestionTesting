@@ -188,27 +188,51 @@ public class Metodo {
 	}
 
 	public String toHtml() {
+//		String ret = "";
+//		for (int i = 0; i < texto.size(); i++) {
+//			ret += (i + 1) + " " + texto.get(i) + "\n";
+//
+//		}
+//		ret = ret.replace(Constantes.IF, "<font color=\"red\">" + Constantes.IF + "</font>");
+//		// OJO con el falso if()
+//		ret = ret.replace("<font color=\"red\">" + Constantes.IF + "</font>)",
+//				"<font color=\"#58FF33\">" + Constantes.IF + "</font>)");
+//		ret = ret.replace(Constantes.IF_CON_ESPACIO, "<font color=\"red\">" + Constantes.IF_CON_ESPACIO + "</font>");
+//		ret = ret.replace(Constantes.FOR, "<font color=\"red\">" + Constantes.FOR + "</font>");
+//		ret = ret.replace(Constantes.FOR_CON_ESPACIO, "<font color=\"red\">" + Constantes.FOR_CON_ESPACIO + "</font>");
+//		ret = ret.replace(Constantes.WHILE, "<font color=\"red\">" + Constantes.WHILE + "</font>");
+//		ret = ret.replace(Constantes.WHILE_CON_ESPACIO,
+//				"<font color=\"red\">" + Constantes.WHILE_CON_ESPACIO + "</font>");
+//		ret = ret.replace(Constantes.AND, "<font color=\"red\">" + Constantes.AND + "</font>");
+//		ret = ret.replace(Constantes.OR, "<font color=\"red\">" + Constantes.OR + "</font>");
+//		ret = ret.replace(Constantes.TERNARIO, "<font color=\"red\">" + Constantes.TERNARIO + "</font>");
+//
+//		ret = ret.replace("\n", "<br>");
+//		ret = ret.replace("\t", "&nbsp;&nbsp;");
+//		return "<html><font color=\"#58FF33\">" + ret + "</font></html>";
 		String ret = "";
-		for (int i = 0; i < texto.size(); i++) {
-			ret += (i + 1) + " " + texto.get(i) + "\n";
-
+		String lineaAuxiliar[];
+		boolean pintarLinea = false;
+		int contadorDeLinea = 1;
+		for (String lineaActual : this.texto) {
+			pintarLinea = false;
+			lineaAuxiliar = lineaActual.split("[ \t\\(\\)\\[\\]\\{\\}\\,\\.\\;]+");
+			for (int i = 0; i < lineaAuxiliar.length; i++) {
+				if (lineaAuxiliar[i].toUpperCase().equals("IF") || lineaAuxiliar[i].toUpperCase().equals("FOR") || lineaAuxiliar[i].toUpperCase().equals("WHILE")) {
+					pintarLinea = true;
+					break;
+				}
+			}
+			ret += contadorDeLinea + " ";
+			if (pintarLinea) {
+				ret += "<font color=\"red\">" + lineaActual + "</font>" + "\n";
+			} else {
+				ret += lineaActual + "\n";
+			}
+//			ret += ret + "<br>";
+			contadorDeLinea++;
 		}
-		ret = ret.replace(Constantes.IF, "<font color=\"red\">" + Constantes.IF + "</font>");
-		// OJO con el falso if()
-		ret = ret.replace("<font color=\"red\">" + Constantes.IF + "</font>)",
-				"<font color=\"#58FF33\">" + Constantes.IF + "</font>)");
-		ret = ret.replace(Constantes.IF_CON_ESPACIO, "<font color=\"red\">" + Constantes.IF_CON_ESPACIO + "</font>");
-		ret = ret.replace(Constantes.FOR, "<font color=\"red\">" + Constantes.FOR + "</font>");
-		ret = ret.replace(Constantes.FOR_CON_ESPACIO, "<font color=\"red\">" + Constantes.FOR_CON_ESPACIO + "</font>");
-		ret = ret.replace(Constantes.WHILE, "<font color=\"red\">" + Constantes.WHILE + "</font>");
-		ret = ret.replace(Constantes.WHILE_CON_ESPACIO,
-				"<font color=\"red\">" + Constantes.WHILE_CON_ESPACIO + "</font>");
-		ret = ret.replace(Constantes.AND, "<font color=\"red\">" + Constantes.AND + "</font>");
-		ret = ret.replace(Constantes.OR, "<font color=\"red\">" + Constantes.OR + "</font>");
-		ret = ret.replace(Constantes.TERNARIO, "<font color=\"red\">" + Constantes.TERNARIO + "</font>");
-
-		ret = ret.replace("\n", "<br>");
-		ret = ret.replace("\t", "&nbsp;&nbsp;");
+		ret = ret.replace("\n","<br>").replace("\t", "&nbsp;&nbsp;");
 		return "<html><font color=\"#58FF33\">" + ret + "</font></html>";
 	}
 
@@ -254,5 +278,22 @@ public class Metodo {
 			}
 		}
 		return fanIn;
+	}
+
+	public int calcularCantidadDeVecesQueSeUsaUnMetodo(Metodo m) {
+		int fanOut = 0;
+		String palabraActual = "";
+		for (String linea : this.texto) {
+
+			String[] palabras = linea.split("[ \t\\(\\)\\[\\]\\{\\}\\,\\.\\;]+");
+
+			for (int i = 0; i < palabras.length; i++) {
+				palabraActual = palabras[i];
+				if (palabraActual.equals(m.getNombre())) {
+					fanOut++;
+				}
+			}
+		}
+		return fanOut;
 	}
 }
