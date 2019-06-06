@@ -293,7 +293,7 @@ public class Ventana extends JFrame {
 		porcComentadasbtn.setIcon(new ImageIcon(".\\icon\\iconExclamation.png"));
 		porcComentadasbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				float valorComentariosActual = Float.valueOf(porcComentadastextPane.getText().replace("%", ""));
+				float valorComentariosActual = Float.parseFloat(porcComentadastextPane.getText().replace("%", "").replace(",", "."));
 				String reporte = "";
 				if (valorComentariosActual < 30.00) {
 					reporte = "Es recomendable tener comentado al menos el 30% del codigo.";
