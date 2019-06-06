@@ -189,7 +189,7 @@ public class Ventana extends JFrame {
 		reportCCbtn = new JButton("");
 		reportCCbtn.setEnabled(false);
 		reportCCbtn.setIcon(new ImageIcon(
-				"C:\\Users\\Emiliano Lancuba\\UNLaM\\Analisis de Software\\Entregas\\GestionTesting\\icon\\iconExclamation.png"));
+				".\\icon\\iconExclamation.png"));
 		reportCCbtn.setBounds(727, 198, 26, 22);
 		getContentPane().add(reportCCbtn);
 
@@ -208,7 +208,7 @@ public class Ventana extends JFrame {
 
 		reportFanInbtn = new JButton("");
 		reportFanInbtn.setIcon(new ImageIcon(
-				"C:\\Users\\Emiliano Lancuba\\UNLaM\\Analisis de Software\\Entregas\\GestionTesting\\icon\\iconExclamation.png"));
+				".\\icon\\iconExclamation.png"));
 		reportFanInbtn.setEnabled(false);
 		reportFanInbtn.setBounds(728, 355, 26, 22);
 		getContentPane().add(reportFanInbtn);
@@ -238,14 +238,14 @@ public class Ventana extends JFrame {
 			}
 		});
 		reportFanOutbtn.setIcon(new ImageIcon(
-				"C:\\Users\\Emiliano Lancuba\\UNLaM\\Analisis de Software\\Entregas\\GestionTesting\\icon\\iconExclamation.png"));
+				".\\icon\\iconExclamation.png"));
 		reportFanOutbtn.setEnabled(false);
 		reportFanOutbtn.setBounds(728, 386, 26, 22);
 		getContentPane().add(reportFanOutbtn);
 
 		reportOperadoresbtn = new JButton("");
 		reportOperadoresbtn.setIcon(new ImageIcon(
-				"C:\\Users\\Emiliano Lancuba\\UNLaM\\Analisis de Software\\Entregas\\GestionTesting\\icon\\iconExclamation.png"));
+				".\\icon\\iconExclamation.png"));
 		reportOperadoresbtn.setEnabled(false);
 		reportOperadoresbtn.setBounds(727, 322, 26, 22);
 		getContentPane().add(reportOperadoresbtn);
@@ -274,7 +274,7 @@ public class Ventana extends JFrame {
 			}
 		});
 		reportOperandosbtn.setIcon(new ImageIcon(
-				"C:\\Users\\Emiliano Lancuba\\UNLaM\\Analisis de Software\\Entregas\\GestionTesting\\icon\\iconExclamation.png"));
+				".\\icon\\iconExclamation.png"));
 		reportOperandosbtn.setEnabled(false);
 		reportOperandosbtn.setBounds(728, 293, 26, 22);
 		getContentPane().add(reportOperandosbtn);
@@ -290,8 +290,7 @@ public class Ventana extends JFrame {
 		getContentPane().add(porcComentadastextPane);
 
 		porcComentadasbtn = new JButton("");
-		porcComentadasbtn.setIcon(new ImageIcon(
-				"C:\\Users\\Emiliano Lancuba\\UNLaM\\Analisis de Software\\Entregas\\GestionTesting\\icon\\iconExclamation.png"));
+		porcComentadasbtn.setIcon(new ImageIcon(".\\icon\\iconExclamation.png"));
 		porcComentadasbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				float valorComentariosActual = Float.valueOf(porcComentadastextPane.getText().replace("%", ""));
