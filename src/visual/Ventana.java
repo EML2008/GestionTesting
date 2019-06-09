@@ -230,9 +230,9 @@ public class Ventana extends JFrame {
 				int valorFanOutActual = Integer.valueOf(fanOutTextPane.getText());
 				String reporte = "";
 				if (valorFanOutActual > 5) {
-					reporte = "El metodo es utilizado en mas de 5 metodos, testee este metodo exhaustivamente (Por ejemplo con el metodo de Mc Cabe).";
+					reporte = "El metodo esta utilizando mas de 5 metodos, testee este metodo exhaustivamente (Por ejemplo con el metodo de Mc Cabe).";
 				} else
-					reporte = "El metodo es utilizado en " + valorFanOutActual
+					reporte = "El metodo esta utilizando " + valorFanOutActual
 							+ " metodos, no es necesario testearlo exhaustivamente (Por ejemplo con el metodo de Sentencias).";
 				JOptionPane.showMessageDialog(null, reporte, "INFORMACION", JOptionPane.INFORMATION_MESSAGE);
 			}
