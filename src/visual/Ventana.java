@@ -427,7 +427,7 @@ public class Ventana extends JFrame {
 		textCodigo.setText(codigoFormateado);
 		float porcentajeDeLineasComentadas = (float) ((float) metodo.lineasComentadas()
 				/ (float) (metodo.getTexto().size())) * 100;
-		System.out.println(porcentajeDeLineasComentadas);
+//		System.out.println(porcentajeDeLineasComentadas);
 		textLineasMetodo.setText(String.valueOf(metodo.getTexto().size()));
 		textLineasComentadasMetodo.setText(String.valueOf(metodo.lineasComentadas()));
 		porcComentadastextPane.setText(String.format("%.2f", porcentajeDeLineasComentadas).concat("%"));

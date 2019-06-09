@@ -108,7 +108,7 @@ public class Metodo {
 //		System.out.println("Claves: " + this.operandos.keySet().size());
 //		System.out.println("Claves: " + this.operandos.keySet());
 //		System.out.println(this.operandos.values().size());
-		System.out.println(this.operandosEncontradosTotales);
+//		System.out.println(this.operandosEncontradosTotales);
 		this.operandosEncontradosUnicos = this.operandos.keySet().size();
 		return this.operandosEncontradosTotales;
 	}
@@ -218,7 +218,8 @@ public class Metodo {
 			pintarLinea = false;
 			lineaAuxiliar = lineaActual.split("[ \t\\(\\)\\[\\]\\{\\}\\,\\.\\;]+");
 			for (int i = 0; i < lineaAuxiliar.length; i++) {
-				if (lineaAuxiliar[i].toUpperCase().equals("IF") || lineaAuxiliar[i].toUpperCase().equals("FOR") || lineaAuxiliar[i].toUpperCase().equals("WHILE")) {
+				if (lineaAuxiliar[i].toUpperCase().equals("IF") || lineaAuxiliar[i].toUpperCase().equals("FOR")
+						|| lineaAuxiliar[i].toUpperCase().equals("WHILE")) {
 					pintarLinea = true;
 					break;
 				}
@@ -232,7 +233,7 @@ public class Metodo {
 //			ret += ret + "<br>";
 			contadorDeLinea++;
 		}
-		ret = ret.replace("\n","<br>").replace("\t", "&nbsp;&nbsp;");
+		ret = ret.replace("\n", "<br>").replace("\t", "&nbsp;&nbsp;");
 		return "<html><font color=\"#58FF33\">" + ret + "</font></html>";
 	}
 
@@ -271,7 +272,7 @@ public class Metodo {
 				for (Metodo m : this.otrosMetodosDeLaClase) {
 					if (m.getNombre().equals(palabraActual) && !m.getNombre().equals(this.nombre)) {
 						fanIn++;
-						System.out.println(palabraActual);
+//						System.out.println(palabraActual);
 						break;
 					}
 				}
