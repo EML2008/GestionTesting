@@ -229,7 +229,7 @@ public class Ventana extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				int valorFanOutActual = Integer.valueOf(fanInTextPane.getText());
 				String reporte = "";
-				if (valorFanOutActual > 2) {
+				if (valorFanOutActual > 5) {
 					reporte = "El metodo es utilizado en mas de 5 metodos, testee este metodo exhaustivamente (Por ejemplo con el metodo de Mc Cabe).";
 				} else
 					reporte = "El metodo es utilizado en " + valorFanOutActual
