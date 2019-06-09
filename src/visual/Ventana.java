@@ -227,7 +227,7 @@ public class Ventana extends JFrame {
 		reportFanOutbtn = new JButton("");
 		reportFanOutbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int valorFanOutActual = Integer.valueOf(fanInTextPane.getText());
+				int valorFanOutActual = Integer.valueOf(fanOutTextPane.getText());
 				String reporte = "";
 				if (valorFanOutActual > 5) {
 					reporte = "El metodo es utilizado en mas de 5 metodos, testee este metodo exhaustivamente (Por ejemplo con el metodo de Mc Cabe).";
