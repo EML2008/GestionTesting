@@ -40,7 +40,7 @@ public class Metodo {
 	 * @return
 	 */
 	public int predicados() {
-		int predicados = 0;
+		int predicados = 1;
 		for (int i = 0; i < texto.size(); i++) {
 			predicados += contarPalabrasClave(i, Constantes.IF);
 			predicados += contarPalabrasClave(i, Constantes.IF_CON_ESPACIO);
