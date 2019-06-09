@@ -260,8 +260,8 @@ public class Metodo {
 		this.otrosMetodosDeLaClase = otrosMetodosDeLaClase;
 	}
 
-	public int calcularFanIn() {
-		int fanIn = 0;
+	public int calcularFanOut() {
+		int fanOut = 0;
 		String palabraActual = "";
 		for (String linea : this.texto) {
 
@@ -271,14 +271,14 @@ public class Metodo {
 				palabraActual = palabras[i];
 				for (Metodo m : this.otrosMetodosDeLaClase) {
 					if (m.getNombre().equals(palabraActual) && !m.getNombre().equals(this.nombre)) {
-						fanIn++;
+						fanOut++;
 //						System.out.println(palabraActual);
 						break;
 					}
 				}
 			}
 		}
-		return fanIn;
+		return fanOut;
 	}
 
 	public int calcularCantidadDeVecesQueSeUsaUnMetodo(Metodo m) {

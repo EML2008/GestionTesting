@@ -395,8 +395,8 @@ public class Ventana extends JFrame {
 			this.fanInTextPane.setText(null);
 			this.fanOutTextPane.setText(null);
 		} else {
-			this.fanInTextPane.setText(String.valueOf(metodo.calcularFanIn()));
-			this.fanOutTextPane.setText(String.valueOf(this.calculaFanOut(metodo)));
+			this.fanInTextPane.setText(String.valueOf(this.calculaFanIn(metodo)));
+			this.fanOutTextPane.setText(String.valueOf(metodo.calcularFanOut()));
 		}
 	}
 
@@ -480,11 +480,11 @@ public class Ventana extends JFrame {
 		principal.setSize(780, 550);
 	}
 
-	public int calculaFanOut(Metodo m) {
-		int fanOut = -1;
+	public int calculaFanIn(Metodo m) {
+		int fanIn = -1;
 		for (Metodo metodoActual : this.metodos) {
-			fanOut += metodoActual.calcularCantidadDeVecesQueSeUsaUnMetodo(m);
+			fanIn += metodoActual.calcularCantidadDeVecesQueSeUsaUnMetodo(m);
 		}
-		return fanOut;
+		return fanIn;
 	}
 }
